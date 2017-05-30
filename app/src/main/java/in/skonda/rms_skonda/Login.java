@@ -1,6 +1,7 @@
 package in.skonda.rms_skonda;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -31,24 +32,16 @@ public class Login extends AppCompatActivity implements TextWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        System.out.print("before changed");
-        Log.d("skondad", "thie is before text changed");
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        System.out.print("on changed");
-        Log.d("skondad", "thie is on text changed");
     }
 
     @Override
     public void afterTextChanged(Editable s) {
-        System.out.print("after changed");
-        Log.d("skondad", "thie is after text changed");
-        Log.d("skondad", "" + mobile.getText().length() );
         if (mobile.getText().length() == 10) {
             String mob = mobile.getText().toString();
-            Log.d("skondad", "" + mobile.getText().toString());
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
@@ -58,7 +51,6 @@ public class Login extends AppCompatActivity implements TextWatcher {
                 requestPermissions(permissions, 1);
             }
             else {
-                Toast.makeText(this, "sending sms", Toast.LENGTH_SHORT).show();
                 sendMessage();
             }
         }
@@ -68,7 +60,6 @@ public class Login extends AppCompatActivity implements TextWatcher {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "granted permission", Toast.LENGTH_SHORT).show();
             sendMessage();
         }
         else {
@@ -77,7 +68,11 @@ public class Login extends AppCompatActivity implements TextWatcher {
     }
 
     void sendMessage() {
-        long otp = Math.round(Math.random() * 1000000);
+        int otp = (int) Math.round(Math.random() * 1000000);
+        SharedPreferences sharedPreferences = getSharedPreferences("skonda", MODE_PRIVATE);
+        SharedPreferences.Editor editor= sharedPreferences.edit();
+        editor.putInt("otp", otp);
+        editor.commit();
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage("7702571000", null, "OTP by SKONDA - " + otp, null, null);
     }
