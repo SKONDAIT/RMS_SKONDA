@@ -12,16 +12,16 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 // login activity - sudarsan.konda
-// added interface OnKeyListener. .
-// adding on 30th May
 public class Login extends AppCompatActivity implements TextWatcher {
 
     EditText mobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int i;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mobile = (EditText) findViewById(R.id.mobile);
@@ -43,17 +43,20 @@ public class Login extends AppCompatActivity implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        System.out.print("after changed");
+
         Log.d("skondad", "thie is after text changed");
         Log.d("skondad", "" + mobile.getText().length() );
         if (mobile.getText().length() == 10) {
-            String mob = mobile.getText().toString();
-            Log.d("skondad", "" + mobile.getText().toString());
             SmsManager smsManager = SmsManager.getDefault();
+            double rand = Math.random();
+            long otp = Math.round(rand * 1000000);
+            smsManager.sendTextMessage(mobile.getText().toString(), null, "OTP - " + otp, null, null );
+            Toast.makeText(this, "number received: " + mobile.getText().toString(), Toast.LENGTH_SHORT).show();
+
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
                     != PackageManager.PERMISSION_GRANTED)
-                Log.d("skondad", "permission not granted");
-//            smsManager.sendTextMessage(mob, null, "random number", null, null );
+                Toast.makeText(this, "no permissions", Toast.LENGTH_SHORT).show();
+
             Log.d("skondad", "again: " + mobile.getText().toString());
         }
     }
