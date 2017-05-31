@@ -19,9 +19,14 @@ public class ReceiveSMS extends BroadcastReceiver {
         // an Intent broadcast.
         String action = intent.getAction();
         SmsMessage smsMessage[] = Telephony.Sms.Intents.getMessagesFromIntent(intent);
-        int otpRec = Integer.parseInt(smsMessage[0].getMessageBody().toString().substring(16));
+        int otp_received = Integer.parseInt(smsMessage[0].getMessageBody().toString().substring(16));
         SharedPreferences sharedPreferences = context.getSharedPreferences("skonda", Context.MODE_PRIVATE);
         int otp = sharedPreferences.getInt("otp", 0);
-        Toast.makeText(context, "both values: " + otpRec + otp, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "both values: " + otp_received + otp, Toast.LENGTH_SHORT).show();
+        if(otp_received == otp) {
+            Toast.makeText(context, "OTP validation success", Toast.LENGTH_SHORT).show();
+        }
+        else
+            Toast.makeText(context, "OTP validation failure", Toast.LENGTH_SHORT).show();
     }
 }
