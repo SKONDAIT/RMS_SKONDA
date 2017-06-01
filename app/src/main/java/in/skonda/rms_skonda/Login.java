@@ -1,6 +1,7 @@
 package in.skonda.rms_skonda;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -32,6 +34,7 @@ public class Login extends AppCompatActivity implements TextWatcher {
     EditText mobile;
     String status = "success";
     String mobile_number;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,12 @@ public class Login extends AppCompatActivity implements TextWatcher {
         setContentView(R.layout.activity_login);
         mobile = (EditText) findViewById(R.id.mobile);
         mobile.addTextChangedListener(this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Validating Mobile Registration");
+        progressDialog.setTitle("Status");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
     }
 
 
@@ -53,6 +62,7 @@ public class Login extends AppCompatActivity implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         if (mobile.getText().length() == 10) {
+            progressDialog.show();
             mobile_number = mobile.getText().toString();
             String mob = mobile.getText().toString();
             String url = "http://ioca.in/rms/authenticate.php?mob=" + mob;
@@ -125,6 +135,7 @@ public class Login extends AppCompatActivity implements TextWatcher {
         editor.commit();
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(mobile_number, null, "OTP by SKONDA - " + otp, null, null);
+        progressDialog.hide();
     }
 
 
