@@ -1,5 +1,6 @@
 package in.skonda.rms_skonda;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +13,15 @@ import android.widget.Toast;
 
 public class ReceiveSMS extends BroadcastReceiver {
 
+    ProgressDialog progressDialog;
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onReceive(Context context, Intent intent) {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle("Status");
+        progressDialog.setMessage("Validating OTP");
+        progressDialog.show();
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
         String action = intent.getAction();
@@ -28,5 +35,6 @@ public class ReceiveSMS extends BroadcastReceiver {
         }
         else
             Toast.makeText(context, "OTP validation failure", Toast.LENGTH_SHORT).show();
+        progressDialog.hide();
     }
 }

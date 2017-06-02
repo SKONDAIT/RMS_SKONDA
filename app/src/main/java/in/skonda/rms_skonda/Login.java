@@ -1,6 +1,7 @@
 package in.skonda.rms_skonda;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -8,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -15,6 +17,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -32,6 +35,7 @@ public class Login extends AppCompatActivity implements TextWatcher {
     EditText mobile;
     String status = "success";
     String mobile_number;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,15 @@ public class Login extends AppCompatActivity implements TextWatcher {
         setContentView(R.layout.activity_login);
         mobile = (EditText) findViewById(R.id.mobile);
         mobile.addTextChangedListener(this);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.login_appbar);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Validating Mobile Registration");
+        progressDialog.setTitle("Status");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
     }
 
 
@@ -53,6 +66,7 @@ public class Login extends AppCompatActivity implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         if (mobile.getText().length() == 10) {
+            progressDialog.show();
             mobile_number = mobile.getText().toString();
             String mob = mobile.getText().toString();
             String url = "http://ioca.in/rms/authenticate.php?mob=" + mob;
@@ -125,6 +139,7 @@ public class Login extends AppCompatActivity implements TextWatcher {
         editor.commit();
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(mobile_number, null, "OTP by SKONDA - " + otp, null, null);
+        progressDialog.hide();
     }
 
 
