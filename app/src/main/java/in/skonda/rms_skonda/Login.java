@@ -2,6 +2,7 @@ package in.skonda.rms_skonda;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -47,6 +48,9 @@ public class Login extends AppCompatActivity implements TextWatcher {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.login_appbar);
 
+        Intent dashboard = new Intent(this, Dashboard.class);
+        startActivity(dashboard);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Validating Mobile Registration");
         progressDialog.setTitle("Status");
@@ -68,12 +72,12 @@ public class Login extends AppCompatActivity implements TextWatcher {
         if (mobile.getText().length() == 10) {
             progressDialog.show();
             mobile_number = mobile.getText().toString();
-            String mob = mobile.getText().toString();
-            String url = "http://ioca.in/rms/authenticate.php?mob=" + mob;
+//            String mob = mobile.getText().toString();
+            String url = "http://ioca.in/rms/authenticate.php?mob=" + mobile_number;
             Request request = new Request.Builder().url(url).build();
 
             OkHttpClient okHttpClient = new OkHttpClient();
-            System.out.println("before call" + url);
+//            System.out.println("before call" + url);
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -88,7 +92,6 @@ public class Login extends AppCompatActivity implements TextWatcher {
 
                     if (result.indexOf("success") == -1)
                     {
-                        System.out.println("success");
                         status = "failure";
                     }
 
@@ -109,7 +112,8 @@ public class Login extends AppCompatActivity implements TextWatcher {
                                         sendMessage();
                                     }
                         }
-                    });
+
+            });
 
                     response.body().close();
                 }

@@ -11,5 +11,7 @@
         android:text="RMS_SKONDA"
         android:textSize="24dp"
         android:id="@+id/loginTv"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
         />
 </LinearLayout>

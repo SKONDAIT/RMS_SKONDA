@@ -24,7 +24,7 @@ public class ReceiveSMS extends BroadcastReceiver {
         progressDialog.show();
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
-        String action = intent.getAction();
+//        String action = intent.getAction();
         SmsMessage smsMessage[] = Telephony.Sms.Intents.getMessagesFromIntent(intent);
         int otp_received = Integer.parseInt(smsMessage[0].getMessageBody().toString().substring(16));
         SharedPreferences sharedPreferences = context.getSharedPreferences("skonda", Context.MODE_PRIVATE);
@@ -32,6 +32,7 @@ public class ReceiveSMS extends BroadcastReceiver {
         Toast.makeText(context, "both values: " + otp_received + otp, Toast.LENGTH_SHORT).show();
         if(otp_received == otp) {
             Toast.makeText(context, "OTP validation success", Toast.LENGTH_SHORT).show();
+            Intent dashboard = new Intent(context, Dashboard.class);
         }
         else
             Toast.makeText(context, "OTP validation failure", Toast.LENGTH_SHORT).show();
