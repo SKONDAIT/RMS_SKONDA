@@ -1,5 +1,6 @@
 package in.skonda.rms_skonda;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,9 +40,13 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         {
             case R.id.enroll:
                 Toast.makeText(this, "enroll clickedx", Toast.LENGTH_SHORT).show();
+                Intent intentEnroll = new Intent(this, Enroll.class);
+                startActivity(intentEnroll);
                 break;
             case R.id.list:
                 Toast.makeText(this, "list clicked", Toast.LENGTH_SHORT).show();
+                Intent intentList = new Intent(this, ItemListActivity.class);
+                startActivity(intentList);
                 break;
             case R.id.student:
                 Toast.makeText(this, "student clicked", Toast.LENGTH_SHORT).show();
