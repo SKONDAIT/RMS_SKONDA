@@ -13,6 +13,7 @@
             android:gravity="center"
             android:orientation="horizontal">
             <ImageView
+                android:id="@+id/enroll"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:tint="@color/colorAccent"
@@ -21,6 +22,7 @@
                 android:layout_gravity="bottom"
                 />
             <ImageView
+                android:id="@+id/list"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:tint="@color/colorAccent"
@@ -69,6 +71,7 @@
         android:gravity="center"
         android:orientation="horizontal">
         <ImageView
+            android:id="@+id/student"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:tint="@color/colorAccent"
@@ -77,6 +80,7 @@
             android:layout_gravity="bottom"
             />
         <ImageView
+            android:id="@+id/fee"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:tint="@color/colorAccent"
@@ -121,6 +125,7 @@
         android:gravity="center"
         android:orientation="horizontal">
         <ImageView
+            android:id="@+id/sms"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:tint="@color/colorAccent"
