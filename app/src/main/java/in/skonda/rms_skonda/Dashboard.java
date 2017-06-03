@@ -39,7 +39,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         switch (view.getId())
         {
             case R.id.enroll:
-                Toast.makeText(this, "enroll clickedx", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "enroll clicked", Toast.LENGTH_SHORT).show();
                 Intent intentEnroll = new Intent(this, Enroll.class);
                 startActivity(intentEnroll);
                 break;

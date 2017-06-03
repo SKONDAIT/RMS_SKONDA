@@ -58,6 +58,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.skonda.rms_skonda.ItemListActivity" />
         </activity>
+        <activity android:name=".Student_report"></activity>
     </application>
 
 </manifest>
