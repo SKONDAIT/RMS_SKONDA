@@ -29,32 +29,51 @@
         android:paddingRight="20dp"
         android:paddingTop="20dp">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_phone"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp">
-
-            <EditText
-                android:id="@+id/input_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_phone"
-                android:inputType="number"/>
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_message"
+            android:layout_marginTop="20dp"
+            android:text="List Of Mobile Numbers"
+            android:id="@+id/sms_text1"
+            />
+        <EditText
+            android:id="@+id/input_phone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp">
+            android:layout_height="0dp"
+            android:hint="List of Mobile no"
+            android:inputType="textCapSentences|textMultiLine"
+            android:scrollHorizontally="false"
+            android:layout_weight="1"
+            android:gravity="top|left"
+            android:layout_marginBottom="9dp"
+            android:background="@drawable/border"
+            android:layout_marginTop="10dp"
+            />
 
-            <EditText
-                android:id="@+id/input_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_message" />
-        </android.support.design.widget.TextInputLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Message To Send"
+            android:id="@+id/sms_text2"
+            />
+
+        <EditText
+            android:id="@+id/input_message"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="50dp"
+            android:layout_weight="1"
+            android:hint="Message to send"
+            android:gravity="top|left"
+            android:background="@drawable/border"
+            android:inputType="textCapSentences|textMultiLine"
+            android:scrollHorizontally="false"
+            android:layout_marginTop="10dp"
+             />
+
     </LinearLayout>
+
     <include layout="@layout/content_sms" />
 
     <android.support.design.widget.FloatingActionButton
@@ -63,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_done_black_24dp" />
+        app:srcCompat="@drawable/ic_done_black_24dp"
+        />
 
 </android.support.design.widget.CoordinatorLayout>
