@@ -58,7 +58,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.skonda.rms_skonda.ItemListActivity" />
         </activity>
-        <activity android:name=".Student_report"></activity>
+        <activity android:name=".Student_report" />
+        <activity
+            android:name=".sms"
+            android:label="@string/title_activity_sms"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

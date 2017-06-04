@@ -57,6 +57,8 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.sms:
                 Toast.makeText(this, "sms clicked", Toast.LENGTH_SHORT).show();
+                Intent intentSms = new Intent(this, sms.class);
+                startActivity(intentSms);
                 break;
         }
     }
