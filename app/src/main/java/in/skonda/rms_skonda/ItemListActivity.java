@@ -3,12 +3,15 @@ package in.skonda.rms_skonda;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +20,23 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import in.skonda.rms_skonda.dummy.DummyContent;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import in.skonda.rms_skonda.dummy.DummyContent;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.List;
+
+
+import java.util.logging.LogRecord;
 
 /**
  * An activity representing a list of Items. This activity
@@ -37,10 +54,58 @@ public class ItemListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+
+
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder().url("http://ioca.in/rms/fetchallstudentinfo.php?deviceID=1234567890").build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("skondad: ", "Call Failed: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                try {
+                    JSONArray jsonArray = new JSONArray(response.body().string());
+                    for(int i=0; i<jsonArray.length(); i++)
+                    {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        Log.d("skondad: ", jsonObject.getString("name") ) ;
+                    }
+
+                    Log.d("skondad: ", "number of elements are: " + jsonArray.length() );
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                };
+
+//                Log.d("skondad: ", "response success? " + response.isSuccessful() + ", response is: " + response.body().string() );
+
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        DummyContent.skonda();
+                    }
+                });
+
+                response.body().close();
+            }
+        });
+
+        Log.d("skondad: ", "main thread name is: " + Thread.currentThread().getName() );
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
