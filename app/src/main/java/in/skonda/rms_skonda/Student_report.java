@@ -1,16 +1,9 @@
 package in.skonda.rms_skonda;
-
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Looper;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
@@ -40,11 +32,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.logging.Handler;
 
-import static android.R.attr.switchMinWidth;
-import static android.R.attr.value;
+import static in.skonda.rms_skonda.R.id.status;
 
 public class Student_report extends AppCompatActivity {
 
@@ -68,8 +57,78 @@ int al=0;
         setContentView(R.layout.activity_student_report);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        new report().execute();
+      //  new report().execute();
 
+        String url = "http://ioca.in/rms/reportEnrolmentService.php?deviceID=1234567890";
+        Request request = new Request.Builder().url(url).build();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("skondad: ", "Call Failed: " + e.getMessage());
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d("skondad: ", "response success? " + response.isSuccessful()
+                        + response.message());
+                //final String result1 = response.body().string();
+               // System.out.println(result1);
+                try {
+                    final JSONArray jsonArray = new JSONArray(response.body().string());
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    al=jsonArray.length();
+                    for(int i=0; i<jsonArray.length(); i++)
+                    {
+                        final JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        //Log.d("skondad: ", jsonObject.getString("name") ) ;
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                  String admissionNo=jsonObject.getString("AdmissionNumber");
+                                    String status=jsonObject.getString("Status");
+                                    switch (status) {
+                                        case "enrolled":
+                                            en++;
+                                            break;
+                                        case "closed":
+                                            cl++;
+                                            break;
+                                        case "discontinue":
+                                            disc++;
+                                            break;
+                                        case "inprogress":
+                                            ip++;
+                                            break;
+                                        case "open":
+                                            op++;
+                                            break;
+                                    }
+                                } catch (JSONException e) {
+                                    Toast.makeText(Student_report.this, "there is exception ", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+
+                    Log.d("skondad: ", "number of elements are: " + jsonArray.length() );
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                };
+
+//                Log.d("skondad: ", "response success? " + response.isSuccessful() + ", response is: " + response.body().string() );
+
+
+
+                response.body().close();
+
+                    }
+
+
+
+        });
 
         all = (TextView) findViewById(R.id.count_all);
         all.setText(String.valueOf(al));
@@ -85,63 +144,5 @@ int al=0;
         inprogress.setText(String.valueOf(ip));
 
     }
-     private class report extends AsyncTask<Void ,Void ,Void> {
 
-
-         @Override
-         protected Void doInBackground(Void... params) {
-
-             String url = "http://ioca.in/rms/reportEnrolmentService.php?status=enrolled";
-             Request request = new Request.Builder().url(url).build();
-             OkHttpClient okHttpClient = new OkHttpClient();
-             okHttpClient.newCall(request).enqueue(new Callback() {
-                 @Override
-                 public void onFailure(Call call, IOException e) {
-                     Log.d("skondad: ", "Call Failed: " + e.getMessage());
-
-                 }
-
-                 @Override
-                 public void onResponse(Call call, Response response) throws IOException {
-                     Log.d("skondad: ", "response success? " + response.isSuccessful()
-                             + response.message());
-                     final String result1 = response.body().string();
-                     System.out.println(result1);
-                     try {
-                         JSONObject Jobj = new JSONObject(result1);
-                         JSONArray report = Jobj.getJSONArray("report");
-                         al = report.length();
-                         for (int i = 0; i < al; i++) {
-                             JSONObject c = report.getJSONObject(i);
-                             String AdmissionNo = c.getString("AdmissionNumber");
-                             String status = c.getString("Status");
-                             switch (status) {
-                                 case "enrolled":
-                                     en++;
-                                     break;
-                                 case "closed":
-                                     cl++;
-                                     break;
-                                 case "discontinue":
-                                     disc++;
-                                     break;
-                                 case "inprogress":
-                                     ip++;
-                                     break;
-                                 case "open":
-                                     op++;
-                                     break;
-                             }
-
-                         }
-                     } catch (JSONException e) {
-                         e.printStackTrace();
-                     }
-
-
-                 }
-             });
-             return null;
-     }
-     }
 }
