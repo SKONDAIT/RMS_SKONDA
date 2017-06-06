@@ -41,6 +41,15 @@
                 android:value="in.skonda.rms_skonda.Dashboard" />
         </activity>
         <activity
+            android:name=".sms"
+            android:label="@string/title_activity_sms"
+            android:parentActivityName=".Dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.skonda.rms_skonda.Dashboard" />
+        </activity>
+        <activity
             android:name=".ItemListActivity"
             android:label="@string/title_item_list"
             android:parentActivityName=".Dashboard"
