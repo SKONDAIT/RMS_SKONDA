@@ -36,28 +36,30 @@ public class DummyContent {
 
     private static final int COUNT = 25;
 
-    static {
+/*    static {
         // Add some sample items.
         for (int i = 1; i <= COUNT; i++) {
             addItem(createDummyItem(i));
         }
-    }
+    }*/
 
-    public static void skonda() {
+
+    public static void skondaAdd(String admissionNumber, String name, String contact, String course, String due, String dateOfEnquiry, String status )
+    {
+        DummyItem dummyItem = new DummyItem(admissionNumber, name, contact, course, due, dateOfEnquiry, status );
+        addItem(dummyItem);
         Log.d("skondad: ", "this is from skonda method");
     }
+
     private static void addItem(DummyItem item) {
         Log.d("skondad: ", "adding item");
         ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
+        ITEM_MAP.put(String.valueOf(item.admissionNumber), item);
     }
 
-    private static DummyItem createDummyItem(final int position) {
-
-
-
+/*    private static DummyItem createDummyItem(final int position) {
         return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
-    }
+    }*/
 
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
@@ -72,19 +74,27 @@ public class DummyContent {
      * A dummy item representing a piece of content.
      */
     public static class DummyItem {
-        public final String id;
-        public final String content;
-        public final String details;
+        public final String admissionNumber;
+        public final String name;
+        public final String contact;
+        public final String course;
+        public final String due;
+        public final String dateOfEnquiry;
+        public final String status;
 
-        public DummyItem(String id, String content, String details) {
-            this.id = id;
-            this.content = content;
-            this.details = details;
+        public DummyItem(String admissionNumber, String name, String contact, String course, String due, String dateOfEnquiry, String status) {
+            this.admissionNumber = admissionNumber;
+            this.name = name;
+            this.contact= contact;
+            this.course = course;
+            this.due = due;
+            this.dateOfEnquiry = dateOfEnquiry;
+            this.status = status;
         }
 
-        @Override
+/*        @Override
         public String toString() {
             return content;
-        }
+        }*/
     }
 }
