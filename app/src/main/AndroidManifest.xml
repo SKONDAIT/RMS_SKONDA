@@ -58,7 +58,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.skonda.rms_skonda.ItemListActivity" />
         </activity>
-        <activity android:name=".Student_report"></activity>
+        <activity android:name=".Student_report"
+            android:label="Student report"
+            android:parentActivityName=".Dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.skonda.rms_skonda.Dashboard"/>
+        </activity>
+        <activity android:name=".Fee_report"
+            android:label="Fee report"
+            android:parentActivityName=".Dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.skonda.rms_skonda.Dashboard"/>
+        </activity>
     </application>
 
 </manifest>
