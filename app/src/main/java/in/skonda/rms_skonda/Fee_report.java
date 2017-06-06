@@ -9,5 +9,7 @@ public class Fee_report extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fee_report);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 }

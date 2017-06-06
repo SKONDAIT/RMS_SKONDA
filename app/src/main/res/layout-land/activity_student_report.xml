@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="All 2300"
+            android:text="All"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:layout_weight="1"
@@ -55,7 +55,41 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1200 Enrolled"
+            android:text="Enrolled"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_gravity="top"
+            android:gravity="center_horizontal"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="0dp"
+        android:layout_marginTop="-10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/count_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2300"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_gravity="top"
+            android:gravity="center_horizontal"
+            />
+
+
+        <TextView
+            android:id="@+id/count_enrolled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1200"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:layout_weight="1"
@@ -99,7 +133,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="258 In Progress"
+            android:text="In Progress"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:layout_weight="1"
@@ -110,11 +144,43 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="89 Open"
+            android:text="Open"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:layout_weight="1"
-            android:layout_gravity="center"
+            android:layout_gravity="top"
+            android:gravity="center_horizontal"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="-10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/count_inProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="258"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_gravity="top"
+            android:gravity="center_horizontal"
+            />
+
+        <TextView
+            android:id="@+id/count_open"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="89"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_gravity="top"
             android:gravity="center_horizontal"/>
     </LinearLayout>
 
@@ -154,7 +220,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="56 Discontinue"
+            android:text="Discontinue"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:layout_weight="1"
@@ -165,7 +231,38 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="34 Closed"
+            android:text="Closed"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_gravity="top"
+            android:gravity="center_horizontal"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="-10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/count_discontinue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="56"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_gravity="top"
+            android:gravity="center_horizontal"
+            />
+
+        <TextView
+            android:id="@+id/count_closed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="34"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             android:layout_weight="1"

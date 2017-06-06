@@ -3,6 +3,8 @@
     <string name="title_activity_enroll">Enroll</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="stuedent_report">Student Report</string>
+    <string name="fee_report">Fee Report</string>
     <string name="hint_name">Full Name</string>
     <string name="hint_email">Email</string>
     <string name="hint_contact">Contact</string>
