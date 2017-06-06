@@ -1,20 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="20dp"
+    android:paddingBottom="20dp"
+    android:background="@drawable/list_seperator"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:orientation="horizontal"
+        >
+        <TextView
+            style="@style/ListLabel"
+            android:text="Name"
+            />
+        <TextView
+            style="@style/ListLabel"
+            android:text="Phone"
+            />
+        <TextView
+            style="@style/ListLabel"
+            android:text="Course"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/name"
+            style="@style/NormalText"
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
+        />
+
+        <TextView
+            android:id="@+id/contact"
+            style="@style/NormalText"
+            android:layout_weight="1.2"
+            />
+
+        <TextView
+            android:id="@+id/course"
+            style="@style/NormalText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        >
+        <TextView
+            style="@style/ListLabel"
+            android:text="Due"
+            />
+        <TextView
+            style="@style/ListLabel"
+            android:text="Enquiry Date"
+            />
+        <TextView
+            style="@style/ListLabel"
+            android:text="Status"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/due"
+            android:textColor="@color/colorPrimary"
+            style="@style/NormalText" />
+
+        <TextView
+            android:id="@+id/dateOfEnquiry"
+            style="@style/NormalText" />
+
+        <TextView
+            android:id="@+id/status"
+            style="@style/NormalText" />
+
+        <TextView
+            android:id="@+id/admissionNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+    />
+    </LinearLayout>
+
 </LinearLayout>

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,21 +55,14 @@ public class ItemListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
 
-
-
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url("http://ioca.in/rms/fetchallstudentinfo.php?deviceID=1234567890").build();
         okHttpClient.newCall(request).enqueue(new Callback() {
-
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -79,13 +73,39 @@ public class ItemListActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
 
                 try {
-                    JSONArray jsonArray = new JSONArray(response.body().string());
+                    final JSONArray jsonArray = new JSONArray(response.body().string());
+                    Handler handler = new Handler(Looper.getMainLooper());
                     for(int i=0; i<jsonArray.length(); i++)
                     {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        final JSONObject jsonObject = jsonArray.getJSONObject(i);
                         Log.d("skondad: ", jsonObject.getString("name") ) ;
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    DummyContent.skondaAdd(
+                                            jsonObject.getString("admissionNumber"),
+                                            jsonObject.getString("name"),
+                                            jsonObject.getString("contact"),
+                                            jsonObject.getString("course"),
+                                            jsonObject.getString("due"),
+                                            jsonObject.getString("DateOfEnquiry"),
+                                            jsonObject.getString("status")
+                                            );
+                                } catch (JSONException e) {
+                                    Toast.makeText(ItemListActivity.this, "there is exception ", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
-
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            View recyclerView = findViewById(R.id.item_list);
+                            assert recyclerView != null;
+                            setupRecyclerView((RecyclerView) recyclerView);
+                        }
+                    });
                     Log.d("skondad: ", "number of elements are: " + jsonArray.length() );
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -93,13 +113,7 @@ public class ItemListActivity extends AppCompatActivity {
 
 //                Log.d("skondad: ", "response success? " + response.isSuccessful() + ", response is: " + response.body().string() );
 
-                Handler handler = new Handler(Looper.getMainLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        DummyContent.skonda();
-                    }
-                });
+
 
                 response.body().close();
             }
@@ -126,9 +140,9 @@ public class ItemListActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        View recyclerView = findViewById(R.id.item_list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+//        View recyclerView = findViewById(R.id.item_list);
+//        assert recyclerView != null;
+//        setupRecyclerView((RecyclerView) recyclerView);
 
         if (findViewById(R.id.item_detail_container) != null) {
             // The detail container view will be present only in the
@@ -167,6 +181,7 @@ public class ItemListActivity extends AppCompatActivity {
 
         public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
             mValues = items;
+            Log.d("skondad: ", "number of items are: " + mValues.size());
         }
 
         @Override
@@ -179,15 +194,23 @@ public class ItemListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mNameView.setText(mValues.get(position).name);
+            holder.mContactView.setText(mValues.get(position).contact);
+//            holder.mContactView.setText("7702571000");
+            holder.mCourseView.setText(mValues.get(position).course);
+//            holder.mDueView.setText("1000");
+            holder.mDueView.setText(mValues.get(position).due);
+            holder.mDateOfEnquiryView.setText(mValues.get(position).dateOfEnquiry);
+            holder.mStatusView.setText(mValues.get(position).status);
+            holder.mAdmissionNumber.setText(mValues.get(position).admissionNumber);
+//            holder.mAdmissionNumber.setText("1");
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        arguments.putString(ItemDetailFragment.ARG_ITEM_ID, String.valueOf(holder.mItem.admissionNumber) );
                         ItemDetailFragment fragment = new ItemDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -196,7 +219,7 @@ public class ItemListActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, ItemDetailActivity.class);
-                        intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, String.valueOf(holder.mItem.admissionNumber));
 
                         context.startActivity(intent);
                     }
@@ -211,21 +234,33 @@ public class ItemListActivity extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
-            public final TextView mIdView;
-            public final TextView mContentView;
+            public final TextView mNameView;
+            public final TextView mContactView;
+            public final TextView mCourseView;
+            public final TextView mDueView;
+            public final TextView mDateOfEnquiryView;
+            public final TextView mStatusView;
+
+            public final TextView mAdmissionNumber;
+
             public DummyContent.DummyItem mItem;
 
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
-                mContentView = (TextView) view.findViewById(R.id.content);
+                mNameView = (TextView) view.findViewById(R.id.name);
+                mContactView = (TextView) view.findViewById(R.id.contact);
+                mCourseView = (TextView) view.findViewById(R.id.course);
+                mDueView = (TextView) view.findViewById(R.id.due);
+                mDateOfEnquiryView = (TextView) view.findViewById(R.id.dateOfEnquiry);
+                mStatusView = (TextView) view.findViewById(R.id.status);
+                mAdmissionNumber = (TextView) view.findViewById(R.id.admissionNumber);
             }
 
-            @Override
+/*            @Override
             public String toString() {
                 return super.toString() + " '" + mContentView.getText() + "'";
-            }
+            }*/
         }
     }
 }
