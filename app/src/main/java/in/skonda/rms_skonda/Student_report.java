@@ -106,6 +106,18 @@ int al=0;
                                             op++;
                                             break;
                                     }
+                                    all = (TextView) findViewById(R.id.count_all);
+                                    all.setText(String.valueOf(al));
+                                    enroll = (TextView) findViewById(R.id.count_enrolled);
+                                    enroll.setText(String.valueOf(en));
+                                    close = (TextView) findViewById(R.id.count_closed);
+                                    close.setText(String.valueOf(cl));
+                                    open = (TextView) findViewById(R.id.count_open);
+                                    open.setText(String.valueOf(op));
+                                    discontinue = (TextView) findViewById(R.id.count_discontinue);
+                                    discontinue.setText(String.valueOf(disc));
+                                    inprogress = (TextView) findViewById(R.id.count_inProgress);
+                                    inprogress.setText(String.valueOf(ip));
                                 } catch (JSONException e) {
                                     Toast.makeText(Student_report.this, "there is exception ", Toast.LENGTH_SHORT).show();
                                 }
@@ -130,18 +142,7 @@ int al=0;
 
         });
 
-        all = (TextView) findViewById(R.id.count_all);
-        all.setText(String.valueOf(al));
-        enroll = (TextView) findViewById(R.id.count_enrolled);
-        enroll.setText(String.valueOf(en));
-        close = (TextView) findViewById(R.id.count_closed);
-        close.setText(String.valueOf(cl));
-        open = (TextView) findViewById(R.id.count_open);
-        open.setText(String.valueOf(op));
-        discontinue = (TextView) findViewById(R.id.count_discontinue);
-        discontinue.setText(String.valueOf(disc));
-        inprogress = (TextView) findViewById(R.id.count_inProgress);
-        inprogress.setText(String.valueOf(ip));
+
 
     }
 
