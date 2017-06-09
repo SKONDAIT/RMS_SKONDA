@@ -126,7 +126,7 @@ public class Fee_report extends AppCompatActivity {
 
         });
         String url1 = "http://ioca.in/rms/perMonth.php?deviceID=1234567890";
-        Request request1 = new Request.Builder().url(url).build();
+        Request request1 = new Request.Builder().url(url1).build();
         OkHttpClient okHttpClient1 = new OkHttpClient();
         okHttpClient1.newCall(request1).enqueue(new Callback() {
             @Override
@@ -137,37 +137,33 @@ public class Fee_report extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.d("skondad: ", "response success? 2 " + response.isSuccessful()
-                        + response.message());
-                try{
-                   // final JSONArray jsonArray= new JSONArray(response.body().string());
-                    final JSONObject c=  new JSONObject(response.body().string());
+                Log.d("skondad: ", "month wise fee details: " + response.isSuccessful()
+                        + response.message() );
+
+                final JSONArray jsonArray;
+                try {
+                    jsonArray = new JSONArray(response.body().string());
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    final String monthlyFee = jsonObject.getString("month");
                     Handler handler = new Handler(Looper.getMainLooper());
-
-                   // for(int i=0;i<jsonArray.length();i++)
-                   // {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    //int month  =Integer.parseInt(c.getString("month"));
-                                    String month=c.getString("month");
-                                    mon = (TextView) findViewById(R.id.rs_month);
-                                    mon.setText(month);
-                                }
-
-                                catch (JSONException e){
-                                    e.printStackTrace();
-                                    Toast.makeText(Fee_report.this, "there is exception ", Toast.LENGTH_SHORT).show();
-                                }
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String month=jsonArray.getString(0);
+                                mon = (TextView) findViewById(R.id.rs_month);
+                                mon.setText(monthlyFee);
                             }
-                        });
-                   // }
-                }
-                catch (JSONException e)
-                {
+
+                            catch (JSONException e){
+                                e.printStackTrace();
+                                Toast.makeText(Fee_report.this, "there is exception ", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                } catch (JSONException e) {
                     e.printStackTrace();
-                };
+                }
 
                 response.body().close();
 
