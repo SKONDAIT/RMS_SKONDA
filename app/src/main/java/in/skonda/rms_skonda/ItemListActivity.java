@@ -89,7 +89,7 @@ public class ItemListActivity extends AppCompatActivity {
                                             jsonObject.getString("admissionNumber"),
                                             jsonObject.getString("name"),
                                             jsonObject.getString("contact"),
-                                            jsonObject.getString("course"),
+                                            jsonObject.getString("course.xml"),
                                             jsonObject.getString("due"),
                                             jsonObject.getString("DateOfEnquiry"),
                                             jsonObject.getString("status")
