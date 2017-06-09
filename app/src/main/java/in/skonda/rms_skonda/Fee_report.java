@@ -140,19 +140,20 @@ public class Fee_report extends AppCompatActivity {
                 Log.d("skondad: ", "response success? 2 " + response.isSuccessful()
                         + response.message());
                 try{
-                    final JSONArray jsonArray= new JSONArray(response.body().string());
+                   // final JSONArray jsonArray= new JSONArray(response.body().string());
+                    final JSONObject c=  new JSONObject(response.body().string());
                     Handler handler = new Handler(Looper.getMainLooper());
 
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
-                        final JSONObject c= jsonArray.getJSONObject(i);
+                   // for(int i=0;i<jsonArray.length();i++)
+                   // {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
                                 try {
-                                    String month  =c.getString("month");
+                                    //int month  =Integer.parseInt(c.getString("month"));
+                                    String month=c.getString("month");
                                     mon = (TextView) findViewById(R.id.rs_month);
-                                    mon.setText(String.valueOf(month));
+                                    mon.setText(month);
                                 }
 
                                 catch (JSONException e){
@@ -161,7 +162,7 @@ public class Fee_report extends AppCompatActivity {
                                 }
                             }
                         });
-                    }
+                   // }
                 }
                 catch (JSONException e)
                 {
