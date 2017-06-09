@@ -34,6 +34,7 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -61,6 +62,7 @@ public class ItemListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_list);
 
         OkHttpClient okHttpClient = new OkHttpClient();
+        DummyContent.ITEMS.clear();
         Request request = new Request.Builder().url("http://ioca.in/rms/fetchallstudentinfo.php?deviceID=1234567890").build();
         okHttpClient.newCall(request).enqueue(new Callback() {
 
