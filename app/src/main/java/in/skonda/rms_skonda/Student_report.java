@@ -55,9 +55,12 @@ int al=0;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_report);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
       //  new report().execute();
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.activity_student_report_appbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String url = "http://ioca.in/rms/reportEnrolmentService.php?deviceID=1234567890";
         Request request = new Request.Builder().url(url).build();
