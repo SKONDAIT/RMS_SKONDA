@@ -76,6 +76,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.skonda.rms_skonda.Dashboard" />
         </activity>
+<<<<<<< Updated upstream
         <activity android:name=".sms"
                   android:label="SMS"
                   android:parentActivityName=".Dashboard"
@@ -86,6 +87,10 @@
 
         </activity>
 
+=======
+        <activity android:name=".course" />
+        <activity android:name=".channel"></activity>
+>>>>>>> Stashed changes
     </application>
 
 </manifest>
