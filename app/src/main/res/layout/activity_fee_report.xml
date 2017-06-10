@@ -13,7 +13,7 @@
         android:gravity="center"
         android:orientation="horizontal">
         <ImageView
-            android:id="@+id/channel"
+            android:id="@+id/chann"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:tint="@color/colorAccent"

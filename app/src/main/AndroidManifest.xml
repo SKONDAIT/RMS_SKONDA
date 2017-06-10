@@ -76,16 +76,32 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.skonda.rms_skonda.Dashboard" />
         </activity>
-        <activity android:name=".sms"
-                  android:label="SMS"
-                  android:parentActivityName=".Dashboard"
-                  android:theme="@style/AppTheme">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="in.skonda.rms_skonda.Dashboard" />
-
+        <activity
+            android:name=".sms"
+            android:label="SMS"
+            android:parentActivityName=".Dashboard"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.skonda.rms_skonda.Dashboard" />
+        </activity>
+        <activity android:name=".course"
+            android:label="course"
+            android:parentActivityName=".Fee_report"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.skonda.rms_skonda.Fee_report"/>
         </activity>
 
+        <activity android:name=".channel"
+            android:label="channel"
+            android:parentActivityName=".Fee_report"
+            android:theme="@style/AppTheme">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="in.skonda.rms_skonda.Fee_report"/>
+        </activity>
     </application>
 
 </manifest>
