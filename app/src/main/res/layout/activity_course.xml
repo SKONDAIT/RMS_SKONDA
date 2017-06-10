@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="in.skonda.rms_skonda.Student_report">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:padding="16dp"
         android:layout_width="368dp"
@@ -22,15 +21,16 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/java"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/java"
-                android:layout_weight="1"
                 android:layout_gravity="bottom"
+                android:layout_weight="1"
                 android:scaleType="centerCrop"
-                />
+                android:src="@drawable/java" />
+
             <ImageView
                 android:id="@+id/dotnet"
                 android:layout_width="100dp"

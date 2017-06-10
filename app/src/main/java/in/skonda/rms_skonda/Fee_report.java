@@ -16,7 +16,8 @@ import android.support.v7.app.AppCompatActivity;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
-        import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.TextView;
         import android.support.v4.app.NavUtils;
         import android.support.v7.app.ActionBar;
         import android.view.MenuItem;
@@ -34,13 +35,22 @@ import android.support.v7.app.AppCompatActivity;
         import okhttp3.Response;
 
         import java.io.IOException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
-public class Fee_report extends AppCompatActivity {
+import static android.R.attr.x;
+import static in.skonda.rms_skonda.R.id.enroll;
+import static in.skonda.rms_skonda.R.id.fee;
+
+public class Fee_report extends AppCompatActivity implements View.OnClickListener{
+    ImageView channel_stat;
+    ImageView course_stat;
 
     int courses=0;
     int pending=0;
     int total=0;
     int channel=0;
+    int j;
     TextView chn;
     TextView cou;
     TextView mon;
@@ -50,9 +60,14 @@ public class Fee_report extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fee_report);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Log.d("skondad: ", "Hi lka;sdnf;lsahd g;asdhadghsdkfhjdk: " );
         Log.d("skondad: ", "Hi i am here ");
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.fee_report_appbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         String url = "http://ioca.in/rms/feeReport.php?deviceID=1234567890";
         Request request = new Request.Builder().url(url).build();
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -67,7 +82,7 @@ public class Fee_report extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Log.d("skondad: ", "response success? 2 " + response.isSuccessful()
-                        + response.message());
+                        );
                 try{
                     final JSONArray jsonArray= new JSONArray(response.body().string());
                     Handler handler = new Handler(Looper.getMainLooper());
@@ -81,31 +96,25 @@ public class Fee_report extends AppCompatActivity {
                                 try {
                                     String Admission =c.getString("admissionNumber");
                                     String course= c.getString("course");
-                                   String fee=c.getString("feePaid");
+                                  // String fee=c.getString("feePaid");
                                     //String due=c.getString("due");
-                                    //int feepaid = Integer.parseInt(c.getString("feePaid"));
+                                    int fee = Integer.parseInt(c.getString("feePaid"));
                                     int balance = Integer.parseInt(c.getString("due"));
-                                  //  String Channel=c.getString("Channel");
-                                    int  x=0;
-                                    if(fee=="null")
-                                    {
-                                        x=0;
-                                    }
-                                    else{
-                                        x=Integer.parseInt(fee);
-                                    }
+                                    String Chel=c.getString("channel");
+
+
                                     pending=pending+balance;
-                                    courses=courses+x;
-                                    total=total+x;
-                                    channel=channel+x;
-                                    tot = (TextView) findViewById(R.id.rs_total);
-                                    tot.setText(String.valueOf(total));
+                                    courses=courses+fee;
+                                    total=total+fee;
+                                    channel=channel+fee;
+                                   tot = (TextView) findViewById(R.id.rs_total);
+                                    tot.setText("Rs "+String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(total)));
                                     cou = (TextView) findViewById(R.id.rs_courses);
-                                    cou.setText(String.valueOf(courses));
+                                    cou.setText("Rs "+String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(courses)));
                                     pen = (TextView) findViewById(R.id.rs_pending);
-                                    pen.setText(String.valueOf(pending));
+                                    pen.setText("Rs "+String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(pending)));
                                     chn = (TextView) findViewById(R.id.rs_channel);
-                                    chn.setText(String.valueOf(channel));
+                                    chn.setText("Rs "+String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(channel)));
                                 }
 
                                 catch (JSONException e){
@@ -137,37 +146,47 @@ public class Fee_report extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.d("skondad: ", "month wise fee details: " + response.isSuccessful()
-                        + response.message() );
-
-                final JSONArray jsonArray;
-                try {
-                    jsonArray = new JSONArray(response.body().string());
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    final String monthlyFee = jsonObject.getString("month");
+                Log.d("skondad: ", "response success? 3 " + response.isSuccessful()
+                        + response.message());
+                try{
+                    final JSONArray json= new JSONArray(response.body().string());
+                   // final JSONObject c=  new JSONObject(response.body().string());
                     Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                String month=jsonArray.getString(0);
-                                mon = (TextView) findViewById(R.id.rs_month);
-                                mon.setText(monthlyFee);
-                            }
 
-                            catch (JSONException e){
-                                e.printStackTrace();
-                                Toast.makeText(Fee_report.this, "there is exception ", Toast.LENGTH_SHORT).show();
+                   // for( j=0;j<jsonArray.length();j++)
+                    ////{
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                     JSONObject d=json.getJSONObject(0);
+                                    int month=Integer.parseInt(d.getString("month"));
+                                    mon = (TextView) findViewById(R.id.rs_month);
+                                    mon.setText("Rs "+String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(month)));
+                                }
+
+                                catch (JSONException e){
+                                    e.printStackTrace();
+                                    Toast.makeText(Fee_report.this, "there is exception ", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                        });
+                    //}
                 }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                };
 
                 response.body().close();
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+
+
     }
 }
