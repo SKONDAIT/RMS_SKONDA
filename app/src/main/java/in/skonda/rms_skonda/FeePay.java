@@ -1,6 +1,7 @@
 package in.skonda.rms_skonda;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,7 +69,7 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fee_pay);
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         findViewsById();
         setDateTimeField();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -79,11 +80,11 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
             @Override
             public void onClick(View view) {
                 new insert().execute(id,money.getText().toString(),dpaid.getText().toString(),mode);
-                // money=(EditText) findViewById(R.id.input_balance) ;
-                //String bl=money.getText().toString();
-                //date=dpaid.getText().toString();
+                Intent retToDetail = new Intent(view.getContext(), ItemDetailActivity.class);
+                startActivity(retToDetail);
 
             }
+
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
