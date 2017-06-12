@@ -55,6 +55,7 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
     String course;
     String education;
     String address;
+    String channel;
     String email;
     String status;
     String discount;
@@ -161,6 +162,7 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
         } else if (view == dob) {
             dobDatePickerDialog.show();
         }
+        channel=spinner1.getSelectedItem().toString();
         name = EditTextName.getText().toString();
         contact = EditTextContact.getText().toString();
         course = EditTextCourse.getText().toString();

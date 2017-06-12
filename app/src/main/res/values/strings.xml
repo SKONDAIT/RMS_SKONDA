@@ -21,6 +21,16 @@
     <string name="hint_message">Message</string>
     <string name="hint_phone">Phone Number</string>
     <string name="title_activity_sms">sms</string>
+    <string name="hint_balance">Enter Amount</string>
+    <string name="hint_date">Date Paid</string>
+    <string name="hint_mode">Mode of payment</string>
+    <string name="title_activity_feepay">Fee payment</string>
+    <string-array name="mode_spinner">
+        <item>Mode of Payment</item>
+        <item>Cash</item>
+        <item>Card Payment</item>
+        <item>Online Transaction</item>
+    </string-array>
     <string name="channel_prompt">Choose a channel</string>
     <string-array name="channel_array">
         <item>sulekha</item>
