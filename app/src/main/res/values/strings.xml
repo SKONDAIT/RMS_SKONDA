@@ -21,4 +21,11 @@
     <string name="hint_message">Message</string>
     <string name="hint_phone">Phone Number</string>
     <string name="title_activity_sms">sms</string>
+    <string name="channel_prompt">Choose a channel</string>
+    <string-array name="channel_array">
+        <item>sulekha</item>
+        <item>google ad</item>
+        <item>just dial</item>
+        <item>reference</item>
+    </string-array>
 </resources>
