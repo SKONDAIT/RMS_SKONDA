@@ -1,24 +1,32 @@
 package in.skonda.rms_skonda;
 
 import android.app.DatePickerDialog;
-import android.os.Looper;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,10 +34,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
-import android.widget.DatePicker;
-
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -37,13 +45,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static android.os.Build.VERSION_CODES.N;
-import static in.skonda.rms_skonda.R.id.Adno;
-import static in.skonda.rms_skonda.R.id.nam;
-import static in.skonda.rms_skonda.R.id.nam;
 
 public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelectedListener ,View.OnClickListener{
-
+    String id="2";
     TextView Admin;
     TextView Name;
     TextView Course;
@@ -58,6 +62,7 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
 
     String mode;
     String date;
+    String fee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,17 +78,18 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new insert().execute(id,money.getText().toString(),dpaid.getText().toString(),mode);
+                // money=(EditText) findViewById(R.id.input_balance) ;
+                //String bl=money.getText().toString();
+                //date=dpaid.getText().toString();
 
-                 money=(EditText) findViewById(R.id.input_balance) ;
-                String bl=money.getText().toString();
-                date=dpaid.getText().toString();
-
-
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+
 
         Spinner spinner = (Spinner) findViewById(R.id.mode_spinner);
         spinner.setOnItemSelectedListener(this);
@@ -94,6 +100,10 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+
+
+
+
 
         // Displaying required data
         String url="http://ioca.in/rms/test2.php?admno=2&device_id=1234567890";
@@ -126,7 +136,7 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
                                     int bal=Integer.parseInt(c.getString("due"));
 
                                     Admin=(TextView)findViewById(R.id.Adno);
-                                    Admin.setText("2");
+                                    Admin.setText(id);
                                     Name=(TextView)findViewById(R.id.nam);
                                     Name.setText(name);
                                     Course=(TextView)findViewById(R.id.Course);
@@ -191,9 +201,55 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
     public void onClick(View v) {
         if(v == dpaid) {
             dop.show();
+
+            money=(EditText) findViewById(R.id.input_balance) ;
+             fee=money.getText().toString();
+            dpaid=(EditText) findViewById(R.id.input_datePaid);
             date=dpaid.getText().toString();
-            Log.d("skondad: ","" +date);
         }
 
+    }
+
+    private class insert extends AsyncTask<String ,Integer,Double>
+    {
+
+        @Override
+        protected Double doInBackground(String... params) {
+            postData(params[0],params[1],params[2],params[3]);
+            return null;
+        }
+
+        protected void onPostExecute(Double result){
+            // pb.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), "command sent", Toast.LENGTH_LONG).show();
+        }
+        protected void onProgressUpdate(Integer... progress){
+            // pb.setProgress(progress[0]);
+        }
+        private void postData(String id, String money, String dpaid, String mode) {
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost("http://ioca.in/rms/feei.php?deviceID=1234567890");
+
+            try {
+                // Add your data
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("AdmissionNumber",id));
+                nameValuePairs.add(new BasicNameValuePair("feePaid",money));
+                nameValuePairs.add(new BasicNameValuePair("DatePaid",dpaid));
+                nameValuePairs.add(new BasicNameValuePair("mop",mode));
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                // Execute HTTP Post Request
+                HttpResponse response = httpclient.execute(httppost);
+
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+                Log.d("skondad:","stopped");
+                Toast.makeText(FeePay.this, "there is exception ", Toast.LENGTH_SHORT).show();
+                // TODO Auto-generated catch block
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+            }
+        }
     }
 }
