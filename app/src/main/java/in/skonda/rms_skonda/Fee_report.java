@@ -39,8 +39,8 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 import static android.R.attr.x;
-import static in.skonda.rms_skonda.R.id.enroll;
-import static in.skonda.rms_skonda.R.id.fee;
+//import static in.skonda.rms_skonda.R.id.enroll;
+//import static in.skonda.rms_skonda.R.id.fee;
 
 public class Fee_report extends AppCompatActivity implements View.OnClickListener{
     ImageView channel_stat;

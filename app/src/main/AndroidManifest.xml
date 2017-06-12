@@ -86,7 +86,16 @@
                 android:value="in.skonda.rms_skonda.Dashboard" />
         </activity>
         <activity android:name=".EditStudent" />
-        <activity android:name=".FeePay"></activity>
+        <activity android:name=".FeePay"
+
+            android:label="@string/title_activity_feepay"
+            android:parentActivityName=".ItemDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.skonda.rms_skonda.ItemDetailActivity"
+            />
+        </activity>
     </application>
 
 </manifest>
