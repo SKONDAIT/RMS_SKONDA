@@ -14,15 +14,15 @@
         android:orientation="horizontal"
         >
         <TextView
-            style="@style/ListLabel"
+            style="@style/textLabel"
             android:text="Name"
             />
         <TextView
-            style="@style/ListLabel"
+            style="@style/textLabel"
             android:text="Phone"
             />
         <TextView
-            style="@style/ListLabel"
+            style="@style/textLabel"
             android:text="Course"
             />
     </LinearLayout>
@@ -33,19 +33,19 @@
         >
         <TextView
             android:id="@+id/name"
-            style="@style/NormalText"
+            style="@style/textNormal"
 
         />
 
         <TextView
             android:id="@+id/contact"
-            style="@style/NormalText"
+            style="@style/textNormal"
             android:layout_weight="1.2"
             />
 
         <TextView
             android:id="@+id/course"
-            style="@style/NormalText" />
+            style="@style/textNormal" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,15 +55,15 @@
         android:orientation="horizontal"
         >
         <TextView
-            style="@style/ListLabel"
+            style="@style/textLabel"
             android:text="Due"
             />
         <TextView
-            style="@style/ListLabel"
+            style="@style/textLabel"
             android:text="Enquiry Date"
             />
         <TextView
-            style="@style/ListLabel"
+            style="@style/textLabel"
             android:text="Status"
             />
     </LinearLayout>
@@ -76,15 +76,15 @@
         <TextView
             android:id="@+id/due"
             android:textColor="@color/colorPrimary"
-            style="@style/NormalText" />
+            style="@style/textNormal" />
 
         <TextView
             android:id="@+id/dateOfEnquiry"
-            style="@style/NormalText" />
+            style="@style/textNormal" />
 
         <TextView
             android:id="@+id/status"
-            style="@style/NormalText" />
+            style="@style/textNormal" />
 
         <TextView
             android:id="@+id/admissionNumber"
