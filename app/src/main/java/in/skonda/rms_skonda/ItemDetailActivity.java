@@ -86,6 +86,9 @@ public class ItemDetailActivity extends AppCompatActivity {
                 break;
             case R.id.pay:
                 Intent feeIntent = new Intent(this, FeePay.class);
+//                String admissionNumber = null;
+                feeIntent.putExtra("admissionNumber",
+                        getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID) );
                 startActivity(feeIntent);
                 break ;
             case R.id.close:

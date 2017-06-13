@@ -75,12 +75,16 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        id = getIntent().getStringExtra("admissionNumber");
+
+        Toast.makeText(this, "admission received is: " + id, Toast.LENGTH_SHORT).show();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.feeProceed);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new insert().execute(id,money.getText().toString(),dpaid.getText().toString(),mode);
                 Intent retToDetail = new Intent(view.getContext(), ItemDetailActivity.class);
+                retToDetail.putExtra(ItemDetailFragment.ARG_ITEM_ID, id);
                 startActivity(retToDetail);
 
             }
