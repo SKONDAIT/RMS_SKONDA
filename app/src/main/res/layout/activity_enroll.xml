@@ -56,7 +56,8 @@
                 android:id="@+id/input_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_contact" />
+                android:hint="@string/hint_contact"
+                android:inputType="number"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_address"
@@ -82,18 +83,17 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_course" />
         </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_channel"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp">
-
-            <EditText
-                android:id="@+id/input_channel"
+            android:text="@string/hint_channel"
+            android:textSize="14dp"/>
+            <Spinner
+                android:id="@+id/spinner1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_channel" />
-        </android.support.design.widget.TextInputLayout>
+                android:entries="@array/channel_array"
+                android:prompt="@string/channel_prompt" />
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_education"
             android:layout_width="match_parent"
@@ -181,7 +181,8 @@
                 android:id="@+id/input_discount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_discount" />
+                android:hint="@string/hint_discount"
+                android:inputType="number"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_comments"
@@ -198,7 +199,7 @@
     </LinearLayout>
 
     </ScrollView>
-    <include layout="@layout/content_enroll" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -206,5 +207,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_done_black_24dp"/>
+
+    <include layout="@layout/content_enroll" />
 
 </android.support.design.widget.CoordinatorLayout>

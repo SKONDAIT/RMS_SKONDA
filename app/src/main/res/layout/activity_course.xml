@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context="in.skonda.rms_skonda.Student_report">
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:padding="16dp"
         android:layout_width="368dp"
@@ -67,39 +66,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Dotnet"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:layout_weight="1"
-                android:layout_gravity="top"
-                android:gravity="center_horizontal"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingTop="0dp"
-            android:layout_marginTop="0dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/jav"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Rs"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:layout_weight="1"
-                android:layout_gravity="top"
-                android:gravity="center_horizontal"
-                />
-            <TextView
-                android:id="@+id/dnet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Rs"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 android:layout_weight="1"
@@ -195,41 +161,6 @@
                 android:layout_gravity="top"
                 android:gravity="center_horizontal"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingTop="0dp"
-            android:layout_marginTop="0dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/bd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Rs"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:layout_weight="1"
-                android:layout_gravity="top"
-                android:gravity="center_horizontal"
-                />
-
-
-            <TextView
-                android:id="@+id/andr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Rs"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:layout_weight="1"
-                android:layout_gravity="top"
-                android:gravity="center_horizontal"
-                />
-        </LinearLayout>
-
 
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

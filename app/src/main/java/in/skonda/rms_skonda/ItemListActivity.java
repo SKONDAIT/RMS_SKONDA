@@ -89,7 +89,7 @@ public class ItemListActivity extends AppCompatActivity {
                                             jsonObject.getString("admissionNumber"),
                                             jsonObject.getString("name"),
                                             jsonObject.getString("contact"),
-                                            jsonObject.getString("course.xml"),
+                                            jsonObject.getString("course"),
                                             jsonObject.getString("due"),
                                             jsonObject.getString("DateOfEnquiry"),
                                             jsonObject.getString("status")
@@ -114,8 +114,6 @@ public class ItemListActivity extends AppCompatActivity {
                 };
 
 //                Log.d("skondad: ", "response success? " + response.isSuccessful() + ", response is: " + response.body().string() );
-
-
 
                 response.body().close();
             }

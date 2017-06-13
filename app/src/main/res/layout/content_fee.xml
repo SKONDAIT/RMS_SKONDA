@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="in.skonda.rms_skonda.Enroll"
-    tools:showIn="@layout/activity_enroll">
+    tools:context="in.skonda.rms_skonda.FeePay"
+    tools:showIn="@layout/activity_fee_pay">
 
 
 
