@@ -1,6 +1,8 @@
 package in.skonda.rms_skonda;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -50,23 +52,8 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
     private SimpleDateFormat dateFormatter;
     private Spinner spinner1;
 
-    String name;
-    String contact;
-    String course;
-    String education;
-    String address;
-    String channel;
-    String email;
-    String status;
-    String discount;
-    String comments;
-    String dateE;
-    String dateJ;
-    String dateB;
     InputStream is=null;
-    String result=null;
-    String line=null;
-    int code;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +70,12 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new insert().execute(EditTextName.getText().toString(),EditTextContact.getText().toString());
+                progressDialog = new ProgressDialog(getApplicationContext());
+                progressDialog.setMessage("Inserting Data");
+                progressDialog.setTitle("Status");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
+                new insert().execute(EditTextName.getText().toString(),EditTextContact.getText().toString(),EditTextAddress.getText().toString(),EditTextCourse.getText().toString(),spinner1.getSelectedItem().toString(),EditTextEducation.getText().toString(),doe.getText().toString(),doj.getText().toString(),EditTextEmail.getText().toString(),dob.getText().toString(),EditTextStatus.getText().toString(),EditTextDiscount.getText().toString(),EditTextComments.getText().toString());
                 }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -97,7 +89,6 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
     private void findViewsById() {
         doe = (EditText) findViewById(R.id.input_doe);
         doe.setInputType(InputType.TYPE_NULL);
-
         doj = (EditText) findViewById(R.id.input_doj);
         doj.setInputType(InputType.TYPE_NULL);
 
@@ -162,32 +153,22 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
         } else if (view == dob) {
             dobDatePickerDialog.show();
         }
-        channel=spinner1.getSelectedItem().toString();
-        name = EditTextName.getText().toString();
-        contact = EditTextContact.getText().toString();
-        course = EditTextCourse.getText().toString();
-        education = EditTextEducation.getText().toString();
-        email = EditTextEmail.getText().toString();
-        address = EditTextAddress.getText().toString();
-        discount = EditTextDiscount.getText().toString();
-        status = EditTextStatus.getText().toString();
-        comments = EditTextComments.getText().toString();
-        dateE = doe.getText().toString();
-        dateJ = doj.getText().toString();
-        dateB = dob.getText().toString();
+
     }
-    private class insert extends AsyncTask<String, Integer, Double> {
+    private class insert extends AsyncTask<String, Integer, String> {
 
         @Override
-        protected Double doInBackground(String... params) {
+        protected String doInBackground(String... params) {
             // TODO Auto-generated method stub
             postData(params[0],params[1],params[2],params[3],params[4],params[5],params[6],params[7],params[8],params[9],params[10],params[11],params[12]);
             return null;
         }
 
-        protected void onPostExecute(Double result){
-           // pb.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), "command sent", Toast.LENGTH_LONG).show();
+        protected void onPostExecute(String result) {
+            progressDialog.hide();
+            Toast.makeText(getApplicationContext(),result, Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getApplicationContext(),Dashboard.class);
+                startActivity(intent);
         }
         protected void onProgressUpdate(Integer... progress){
            // pb.setProgress(progress[0]);
@@ -218,8 +199,7 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
 
                 // Execute HTTP Post Request
                 HttpResponse response = httpclient.execute(httppost);
-
-            } catch (ClientProtocolException e) {
+                } catch (ClientProtocolException e) {
                 // TODO Auto-generated catch block
             } catch (IOException e) {
                 // TODO Auto-generated catch block
