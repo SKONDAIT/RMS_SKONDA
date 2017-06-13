@@ -238,6 +238,7 @@
                         android:id="@+id/input_balance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:hint="@string/hint_balance" />
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
@@ -250,6 +251,7 @@
                         android:id="@+id/input_datePaid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="date"
                         android:hint="@string/hint_date" />
                 </android.support.design.widget.TextInputLayout>
 
