@@ -8,6 +8,7 @@
         android:layout_width="368dp"
         android:layout_height="0dp"
         android:text="Channel"
+        android:layout_gravity="center"
         android:paddingLeft="35dp"
         android:textSize="24dp"
         android:id="@+id/Sreport"
