@@ -37,6 +37,7 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -186,7 +187,21 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        Toast.makeText(this, "text submitted", Toast.LENGTH_SHORT).show();
+
+        List<DummyContent.DummyItem> ItemsTemp = new ArrayList<DummyContent.DummyItem>();
+
+        ItemsTemp.addAll(DummyContent.ITEMS);
+        DummyContent.ITEMS.clear();
+
+        for (DummyContent.DummyItem itemTemp :ItemsTemp) {
+            if (itemTemp.course.contains(query) || itemTemp.name.contains(query) || itemTemp.contact.contains(query))  {
+                DummyContent.ITEMS.add(itemTemp);
+            }
+        }
+
+
+        Toast.makeText(this, "list size is: " + DummyContent.ITEMS.size(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "temp size is: " + ItemsTemp.size(), Toast.LENGTH_SHORT).show();
         return false;
     }
 
