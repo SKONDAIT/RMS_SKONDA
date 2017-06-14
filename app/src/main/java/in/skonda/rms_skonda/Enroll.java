@@ -174,7 +174,7 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
            // pb.setProgress(progress[0]);
         }
 
-        public void postData(String name,String contact,String address,String course,String channel,String education,String dateE,String dateJ,String email,String dateB,String status,String discount,String comments ) {
+        public String postData(String name,String contact,String address,String course,String channel,String education,String dateE,String dateJ,String email,String dateB,String status,String discount,String comments ) {
             // Create a new HttpClient and Post Header
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost("http://ioca.in/rms/insert.php?deviceID=1234567890");
@@ -199,10 +199,12 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
 
                 // Execute HTTP Post Request
                 HttpResponse response = httpclient.execute(httppost);
+                return response.toString();
                 } catch (ClientProtocolException e) {
                 // TODO Auto-generated catch block
             } catch (IOException e) {
                 // TODO Auto-generated catch block
             }
+            return "";
         }}
     }
