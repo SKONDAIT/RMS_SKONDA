@@ -5,5 +5,159 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="in.skonda.rms_skonda.EditStudent">
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="name"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/edit_name"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="contact"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/edit_contact"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="course"
+        />
+    <Spinner
+        android:id="@+id/spinner_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/course_array"
+        android:prompt="@string/course_prompt"
+        android:padding="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="channel"
+        android:padding="10dp"
+        />
+    <Spinner
+        android:id="@+id/spinner_channel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/channel_array"
+        android:prompt="@string/channel_prompt" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="Education Details"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/edit_education"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="Date Of Enquiry"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/edit_dateE"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="Date Of Joining"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/edit_dateJ"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="Email"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/edit_email"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="Date Of Birth"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/edit_dateB"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="Status"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/edit_status"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="Fee Discount"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/edit_discount"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:text="Comments"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/edit_comments"/>
+
+</LinearLayout>
+    </ScrollView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_done_black_24dp"/>
 
 </android.support.constraint.ConstraintLayout>

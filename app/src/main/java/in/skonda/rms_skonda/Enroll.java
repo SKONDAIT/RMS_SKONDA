@@ -70,12 +70,14 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog = new ProgressDialog(getApplicationContext());
+                progressDialog = new ProgressDialog(view.getContext());
                 progressDialog.setMessage("Inserting Data");
                 progressDialog.setTitle("Status");
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 progressDialog.show();
                 new insert().execute(EditTextName.getText().toString(),EditTextContact.getText().toString(),EditTextAddress.getText().toString(),EditTextCourse.getText().toString(),spinner1.getSelectedItem().toString(),EditTextEducation.getText().toString(),doe.getText().toString(),doj.getText().toString(),EditTextEmail.getText().toString(),dob.getText().toString(),EditTextStatus.getText().toString(),EditTextDiscount.getText().toString(),EditTextComments.getText().toString());
+                Intent intent=new Intent(view.getContext(),Dashboard.class);
+                startActivity(intent);
                 }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -167,8 +169,7 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
         protected void onPostExecute(String result) {
             progressDialog.hide();
             Toast.makeText(getApplicationContext(),result, Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(getApplicationContext(),Dashboard.class);
-                startActivity(intent);
+
         }
         protected void onProgressUpdate(Integer... progress){
            // pb.setProgress(progress[0]);
