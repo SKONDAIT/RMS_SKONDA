@@ -33,9 +33,10 @@
     </string-array>
     <string name="channel_prompt">Choose a channel</string>
     <string-array name="channel_array">
-        <item>sulekha</item>
+        <item>select channel</item>
         <item>google ad</item>
         <item>just dial</item>
         <item>reference</item>
+        <item>sulekha</item>
     </string-array>
 </resources>

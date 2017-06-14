@@ -30,7 +30,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 // login activity - sudarsan.konda
-// added interface OnKeyListener. .
+// added interface TextWatcher. .
 public class Login extends AppCompatActivity implements TextWatcher {
 
     EditText mobile;
