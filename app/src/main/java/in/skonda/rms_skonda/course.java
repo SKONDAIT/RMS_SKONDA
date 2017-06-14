@@ -115,9 +115,9 @@ public class course extends AppCompatActivity {
 
 
                                     }
-                                    java = (TextView) findViewById(R.id.jav);
+                                    java = (TextView) findViewById(R.id.javaamount);
                                     java.setText("Rs " + String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(javafee)));
-                                    dotnet = (TextView) findViewById(R.id.dnet);
+                                    dotnet = (TextView) findViewById(R.id.dotnetamount);
                                     dotnet.setText("Rs " + String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(dotnetfee)));
                                     bigdata = (TextView) findViewById(R.id.bd);
                                     bigdata.setText("Rs " + String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(bigdatafee)));
