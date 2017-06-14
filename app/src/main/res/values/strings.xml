@@ -39,4 +39,11 @@
         <item>reference</item>
         <item>sulekha</item>
     </string-array>
+    <string name="course_prompt">Choose a course</string>
+    <string-array name="course_array">
+        <item>java</item>
+        <item>android</item>
+        <item>angularjs</item>
+        <item>javascript</item>
+    </string-array>
 </resources>

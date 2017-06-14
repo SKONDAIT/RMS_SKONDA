@@ -111,7 +111,7 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
 
 
         // Displaying required data
-        String url="http://ioca.in/rms/test2.php?admno=2&device_id=1234567890";
+        String url="http://ioca.in/rms/test2.php?admno=" + id + "&device_id=1234567890";
         Request request= new Request.Builder().url(url).build();
         OkHttpClient okHttpClient=new OkHttpClient();
         okHttpClient.newCall(request).enqueue(new Callback() {

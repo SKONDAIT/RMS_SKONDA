@@ -110,10 +110,10 @@ public class ItemDetailFragment extends Fragment {
                                 ((TextView) rootView.findViewById(R.id.item_channel)).setText(itemDetail.getString("Channel"));
                                 ((TextView) rootView.findViewById(R.id.item_address)).setText(itemDetail.getString("Address"));
                                 ((TextView) rootView.findViewById(R.id.item_feepaid)).setText(itemDetail.getString("fee_paid"));
-                                ((TextView) rootView.findViewById(R.id.item_outstanding)).setText("----------");
+                                ((TextView) rootView.findViewById(R.id.item_outstanding)).setText(itemDetail.getString("due_amount"));
                                 ((TextView) rootView.findViewById(R.id.item_email)).setText(itemDetail.getString("Email"));
                                 ((TextView) rootView.findViewById(R.id.item_education)).setText(itemDetail.getString("EducationDetails"));
-                                ((TextView) rootView.findViewById(R.id.item_comments)).setText("--------");
+                                ((TextView) rootView.findViewById(R.id.item_comments)).setText(itemDetail.getString("comments"));
                                 ((TextView) rootView.findViewById(R.id.item_detail)).setText(itemDetail.getString("Name"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
