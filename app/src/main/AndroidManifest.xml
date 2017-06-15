@@ -85,16 +85,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.skonda.rms_skonda.Dashboard" />
         </activity>
-        <activity android:name=".EditStudent" />
-        <activity android:name=".FeePay"
-
+        <activity
+            android:name=".FeePay"
             android:label="@string/title_activity_feepay"
             android:parentActivityName=".ItemDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.skonda.rms_skonda.ItemDetailActivity"
-            />
+                android:value="in.skonda.rms_skonda.ItemDetailActivity" />
+        </activity>
+        <activity
+            android:name=".EditStudent"
+            android:label="@string/title_activity_edit_student"
+            android:parentActivityName=".ItemDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.skonda.rms_skonda.ItemDetailActivity" />
         </activity>
     </application>
 

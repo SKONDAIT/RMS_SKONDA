@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,7 +28,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class EditStudent extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-     String id;
+    String id;
     String mode;
     private EditText doe;
     private EditText doj;
@@ -48,11 +50,15 @@ public class EditStudent extends AppCompatActivity implements AdapterView.OnItem
         id = getIntent().getStringExtra("admissionNumber");
         Toast.makeText(this, "admission received is: " + id, Toast.LENGTH_SHORT).show();
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -74,7 +80,7 @@ public class EditStudent extends AppCompatActivity implements AdapterView.OnItem
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter1);
-        String url="http://ioca.in/rms/fetchstudentdetails.php?admno="+id+"&device_id=1234567890";
+        String url="http://ioca.in/rms/fetchstudentdetails.php?admissionNumber="+id+"&device_id=1234567890";
         Request request= new Request.Builder().url(url).build();
         OkHttpClient okHttpClient=new OkHttpClient();
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -122,13 +128,10 @@ public class EditStudent extends AppCompatActivity implements AdapterView.OnItem
         });
 
     }
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(position>0) {
-            Toast.makeText(parent.getContext(),
-                    "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
-                    Toast.LENGTH_SHORT).show();
-            mode = parent.getItemAtPosition(position).toString();
-        }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
     }
 
     @Override

@@ -25,6 +25,7 @@
     <string name="hint_date">Date Paid</string>
     <string name="hint_mode">Mode of payment</string>
     <string name="title_activity_feepay">Fee payment</string>
+    <string name="title_activity_editStudent">Edit Student</string>
     <string-array name="mode_spinner">
         <item>Mode of Payment</item>
         <item>Cash</item>
@@ -45,4 +46,5 @@
         <item>angularjs</item>
         <item>javascript</item>
     </string-array>
+    <string name="title_activity_edit_student">EditStudent</string>
 </resources>
