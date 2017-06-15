@@ -84,9 +84,10 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void addListenerOnSpinnerItemSelection() {
-        spinner1 = (Spinner) findViewById(R.id.spinner1);
+        spinner1 = (Spinner) findViewById(R.id.spinner_channel);
         spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
     }
+
 
     private void findViewsById() {
         doe = (EditText) findViewById(R.id.input_doe);
