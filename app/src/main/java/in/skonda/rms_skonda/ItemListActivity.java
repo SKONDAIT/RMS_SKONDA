@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -52,7 +53,7 @@ import java.util.logging.LogRecord;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class ItemListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class ItemListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, TabLayout.OnTabSelectedListener  {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -60,11 +61,29 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
      */
     private boolean mTwoPane;
     public SearchView searchView;
+    TabLayout listTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+
+        listTabLayout = (TabLayout) findViewById(R.id.listTabLayout);
+        listTabLayout.addOnTabSelectedListener(this);
+        TabLayout.Tab openTab = listTabLayout.newTab();
+        openTab.setText("Open");
+        TabLayout.Tab closeTab = listTabLayout.newTab();
+        closeTab.setText("Closed");
+        TabLayout.Tab enrollTab = listTabLayout.newTab();
+        enrollTab.setText("Enrolled");
+
+        listTabLayout.addTab(openTab);
+        listTabLayout.addTab(closeTab);
+        listTabLayout.addTab(enrollTab);
+
+
+
+
 
         OkHttpClient okHttpClient = new OkHttpClient();
         DummyContent.ITEMS.clear();
@@ -169,7 +188,6 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
 
@@ -199,9 +217,6 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
             }
         }
 
-
-        Toast.makeText(this, "list size is: " + DummyContent.ITEMS.size(), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "temp size is: " + ItemsTemp.size(), Toast.LENGTH_SHORT).show();
         return false;
     }
 
@@ -209,6 +224,36 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
     public boolean onQueryTextChange(String newText) {
 //        Toast.makeText(this, "test changed", Toast.LENGTH_SHORT).show();
         return false;
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        String tabStatus = tab.getText().toString();
+
+        List<DummyContent.DummyItem> ItemsTemp = new ArrayList<DummyContent.DummyItem>();
+
+        ItemsTemp.addAll(DummyContent.ITEMS);
+        DummyContent.ITEMS.clear();
+
+        for (DummyContent.DummyItem itemTemp :ItemsTemp) {
+            if ( itemTemp.status.equals(tabStatus) )
+            {
+                DummyContent.ITEMS.add(itemTemp);
+            }
+        }
+        View recyclerView = findViewById(R.id.item_list);
+        assert recyclerView != null;
+        setupRecyclerView((RecyclerView) recyclerView);
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 
     public class SimpleItemRecyclerViewAdapter
