@@ -43,7 +43,7 @@
                 android:id="@+id/input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
+
                 android:hint="@string/hint_name" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -89,7 +89,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/channel_array"
-                android:prompt="@string/channel_prompt" />
+                android:layout_marginTop="20dp"/>
+        
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_education"
             android:layout_width="match_parent"
@@ -202,7 +203,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_done_black_24dp"/>
+        android:src="@drawable/ic_arrow_forward_black_24dp       "
+        />
 
     <include layout="@layout/content_enroll" />
 

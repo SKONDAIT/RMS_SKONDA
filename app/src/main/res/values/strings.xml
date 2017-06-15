@@ -7,7 +7,7 @@
     <string name="fee_report">Fee Report</string>
     <string name="hint_name">Full Name</string>
     <string name="hint_email">Email</string>
-    <string name="hint_contact">Contact</string>
+    <string name="hint_contact">Contact No</string>
     <string name="hint_address">Address</string>
     <string name="hint_course">Course</string>
     <string name="hint_channel">Channel</string>
@@ -34,10 +34,11 @@
     </string-array>
     <string name="channel_prompt">Choose a channel</string>
     <string-array name="channel_array">
-        <item>sulekha</item>
+        <item>select channel</item>
         <item>google ad</item>
         <item>just dial</item>
         <item>reference</item>
+        <item>sulekha</item>
     </string-array>
     <string name="course_prompt">Choose a course</string>
     <string-array name="course_array">
