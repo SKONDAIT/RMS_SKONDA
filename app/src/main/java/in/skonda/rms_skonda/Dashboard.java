@@ -21,6 +21,8 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        getSupportActionBar().hide();
+
         enroll = (ImageView) findViewById(R.id.enroll);
         list = (ImageView) findViewById(R.id.list);
         student = (ImageView) findViewById(R.id.student);
