@@ -90,7 +90,7 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
             }
 
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
@@ -111,7 +111,7 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
 
 
         // Displaying required data
-        String url="http://ioca.in/rms/test2.php?admno=2&device_id=1234567890";
+        String url="http://ioca.in/rms/test2.php?admno=" + id + "&device_id=1234567890";
         Request request= new Request.Builder().url(url).build();
         OkHttpClient okHttpClient=new OkHttpClient();
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -126,7 +126,9 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
                 Log.d("skondad: ", "response success for details?  " + response.isSuccessful()
                 );
                 try {
-                    final JSONArray jsonArray = new JSONArray(response.body().string());
+                    String res = response.body().string();
+                    Log.d("skondad: ", "result json is: " + res);
+                    final JSONArray jsonArray = new JSONArray(res);
                     Handler handler = new Handler(Looper.getMainLooper());
                     for (int i = 0; i < jsonArray.length(); i++) {
                         final JSONObject c = jsonArray.getJSONObject(i);

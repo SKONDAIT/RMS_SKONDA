@@ -7,7 +7,7 @@
     <string name="fee_report">Fee Report</string>
     <string name="hint_name">Full Name</string>
     <string name="hint_email">Email</string>
-    <string name="hint_contact">Contact</string>
+    <string name="hint_contact">Contact No</string>
     <string name="hint_address">Address</string>
     <string name="hint_course">Course</string>
     <string name="hint_channel">Channel</string>
@@ -25,6 +25,7 @@
     <string name="hint_date">Date Paid</string>
     <string name="hint_mode">Mode of payment</string>
     <string name="title_activity_feepay">Fee payment</string>
+    <string name="title_activity_editStudent">Edit Student</string>
     <string-array name="mode_spinner">
         <item>Mode of Payment</item>
         <item>Cash</item>
@@ -33,9 +34,18 @@
     </string-array>
     <string name="channel_prompt">Choose a channel</string>
     <string-array name="channel_array">
-        <item>sulekha</item>
+        <item>select channel</item>
         <item>google ad</item>
         <item>just dial</item>
         <item>reference</item>
+        <item>sulekha</item>
     </string-array>
+    <string name="course_prompt">Choose a course</string>
+    <string-array name="course_array">
+        <item>java</item>
+        <item>android</item>
+        <item>angularjs</item>
+        <item>javascript</item>
+    </string-array>
+    <string name="title_activity_edit_student">EditStudent</string>
 </resources>
