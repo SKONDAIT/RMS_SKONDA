@@ -134,6 +134,8 @@ public class EditStudent extends AppCompatActivity implements  View.OnClickListe
                                     EditTextEducation.setText(education);
                                     EditTextComments=(EditText)findViewById(R.id.edit_comments);
                                     EditTextComments.setText(comments);
+                                    spinner1.setSelection(getIndex(spinner1,course));
+                                    spinner2.setSelection(getIndex(spinner2,channel));
                                     setDateTimeField();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -149,6 +151,17 @@ public class EditStudent extends AppCompatActivity implements  View.OnClickListe
             }
         });
 
+    }
+    private int getIndex(Spinner spinner, String myString){
+
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).equals(myString)){
+                index = i;
+            }
+        }
+        return index;
     }
     public void addListenerOnSpinnerItemSelection() {
         spinner1 = (Spinner) findViewById(R.id.spinner_channel);
