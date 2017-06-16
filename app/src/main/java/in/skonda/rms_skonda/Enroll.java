@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -38,7 +39,6 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
     private EditText dob;
     private EditText EditTextName;
     private EditText EditTextContact;
-    private EditText EditTextCourse;
     private EditText EditTextEducation;
     private EditText EditTextAddress;
     private EditText EditTextEmail;
@@ -51,7 +51,7 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
 
     private SimpleDateFormat dateFormatter;
     private Spinner spinner1;
-
+    private Spinner spinner2;
     InputStream is=null;
     ProgressDialog progressDialog;
 
@@ -59,7 +59,7 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enroll);
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         findViewsById();
         setDateTimeField();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -75,7 +75,7 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
                 progressDialog.setTitle("Status");
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 progressDialog.show();
-                new insert().execute(EditTextName.getText().toString(),EditTextContact.getText().toString(),EditTextAddress.getText().toString(),EditTextCourse.getText().toString(),spinner1.getSelectedItem().toString(),EditTextEducation.getText().toString(),doe.getText().toString(),doj.getText().toString(),EditTextEmail.getText().toString(),dob.getText().toString(),EditTextStatus.getText().toString(),EditTextDiscount.getText().toString(),EditTextComments.getText().toString());
+                new insert().execute(EditTextName.getText().toString(),EditTextContact.getText().toString(),EditTextAddress.getText().toString(),spinner2.getSelectedItem().toString(),spinner1.getSelectedItem().toString(),EditTextEducation.getText().toString(),doe.getText().toString(),doj.getText().toString(),EditTextEmail.getText().toString(),dob.getText().toString(),EditTextStatus.getText().toString(),EditTextDiscount.getText().toString(),EditTextComments.getText().toString());
                 Intent intent=new Intent(view.getContext(),Dashboard.class);
                 startActivity(intent);
                 }
@@ -86,6 +86,8 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
     public void addListenerOnSpinnerItemSelection() {
         spinner1 = (Spinner) findViewById(R.id.spinner_channel);
         spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+        spinner2 = (Spinner) findViewById(R.id.spinner_course);
+        spinner2.setOnItemSelectedListener(new CustomOnItemSelectedListener());
     }
 
 
@@ -99,7 +101,6 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
         dob.setInputType(InputType.TYPE_NULL);
         EditTextName = (EditText) findViewById(R.id.input_name);
         EditTextContact = (EditText) findViewById(R.id.input_contact);
-        EditTextCourse = (EditText) findViewById(R.id.input_course);
         EditTextEducation = (EditText) findViewById(R.id.input_education);
         EditTextAddress = (EditText) findViewById(R.id.input_address);
         EditTextEmail = (EditText) findViewById(R.id.input_email);
@@ -163,50 +164,48 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
         @Override
         protected String doInBackground(String... params) {
             // TODO Auto-generated method stub
-            postData(params[0],params[1],params[2],params[3],params[4],params[5],params[6],params[7],params[8],params[9],params[10],params[11],params[12]);
-            return null;
-        }
-
-        protected void onPostExecute(String result) {
-            progressDialog.hide();
-            Toast.makeText(getApplicationContext(),result, Toast.LENGTH_SHORT).show();
-
-        }
-        protected void onProgressUpdate(Integer... progress){
-           // pb.setProgress(progress[0]);
-        }
-
-        public String postData(String name,String contact,String address,String course,String channel,String education,String dateE,String dateJ,String email,String dateB,String status,String discount,String comments ) {
-            // Create a new HttpClient and Post Header
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost("http://ioca.in/rms/insert.php?deviceID=1234567890");
-
+            HttpResponse response = null;
             try {
                 // Add your data
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-                nameValuePairs.add(new BasicNameValuePair("name",name));
-                nameValuePairs.add(new BasicNameValuePair("contact",contact));
-                nameValuePairs.add(new BasicNameValuePair("address",address));
-                nameValuePairs.add(new BasicNameValuePair("course",course));
-                nameValuePairs.add(new BasicNameValuePair("channel",channel));
-                nameValuePairs.add(new BasicNameValuePair("education",education));
-                nameValuePairs.add(new BasicNameValuePair("dateE",dateE));
-                nameValuePairs.add(new BasicNameValuePair("dateJ",dateJ));
-                nameValuePairs.add(new BasicNameValuePair("email",email));
-                nameValuePairs.add(new BasicNameValuePair("dateB",dateB));
-                nameValuePairs.add(new BasicNameValuePair("status",status));
-                nameValuePairs.add(new BasicNameValuePair("discount",discount));
-                nameValuePairs.add(new BasicNameValuePair("comments",comments));
+                nameValuePairs.add(new BasicNameValuePair("name", params[0]));
+                nameValuePairs.add(new BasicNameValuePair("contact", params[1]));
+                nameValuePairs.add(new BasicNameValuePair("address", params[2]));
+                nameValuePairs.add(new BasicNameValuePair("course", params[3]));
+                nameValuePairs.add(new BasicNameValuePair("channel", params[4]));
+                nameValuePairs.add(new BasicNameValuePair("education", params[5]));
+                nameValuePairs.add(new BasicNameValuePair("dateE", params[6]));
+                nameValuePairs.add(new BasicNameValuePair("dateJ", params[7]));
+                nameValuePairs.add(new BasicNameValuePair("email", params[8]));
+                nameValuePairs.add(new BasicNameValuePair("dateB", params[9]));
+                nameValuePairs.add(new BasicNameValuePair("status", params[10]));
+                nameValuePairs.add(new BasicNameValuePair("discount", params[11]));
+                nameValuePairs.add(new BasicNameValuePair("comments", params[12]));
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
                 // Execute HTTP Post Request
-                HttpResponse response = httpclient.execute(httppost);
-                return response.toString();
-                } catch (ClientProtocolException e) {
+                 response = httpclient.execute(httppost);
+
+            } catch (ClientProtocolException e) {
                 // TODO Auto-generated catch block
             } catch (IOException e) {
                 // TODO Auto-generated catch block
             }
-            return "";
-        }}
+            return response.toString();
+        }
+
+        protected void onPostExecute(String result) {
+            progressDialog.hide();
+            Log.d("enroll:",result);
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+            //if(result==)
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            // pb.setProgress(progress[0]);
+        }
+
+    }
     }

@@ -1,6 +1,7 @@
 package in.skonda.rms_skonda;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
@@ -32,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -66,6 +69,8 @@ public class EditStudent extends AppCompatActivity implements  View.OnClickListe
 
         id = getIntent().getStringExtra("admissionNumber");
         Toast.makeText(this, "admission received is: " + id, Toast.LENGTH_SHORT).show();
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+       // findViewsById();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,8 +81,10 @@ public class EditStudent extends AppCompatActivity implements  View.OnClickListe
             @Override
             public void onClick(View view) {
                 new insert().execute(EditTextName.getText().toString(),EditTextContact.getText().toString(),EditTextAddress.getText().toString(),spinner2.getSelectedItem().toString(),spinner1.getSelectedItem().toString(),EditTextEducation.getText().toString(),EditTextdoj.getText().toString(),EditTextEmail.getText().toString(),EditTextdob.getText().toString(),EditTextStatus.getText().toString(),EditTextDiscount.getText().toString(),EditTextComments.getText().toString());
-                Intent intent=new Intent(view.getContext(),ItemListActivity.class);
-                startActivity(intent);
+                Context context = view.getContext();
+                Intent intent=new Intent(context,ItemDetailActivity.class);
+                intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, id);
+                context.startActivity(intent);
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -150,7 +157,6 @@ public class EditStudent extends AppCompatActivity implements  View.OnClickListe
                 response.body().close();
             }
         });
-
     }
     private int getIndex(Spinner spinner, String myString){
 
@@ -168,6 +174,14 @@ public class EditStudent extends AppCompatActivity implements  View.OnClickListe
         spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
         spinner2 = (Spinner) findViewById(R.id.spinner_course);
         spinner2.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+    }
+    private void findViewsById() {
+        EditTextdoj = (EditText) findViewById(R.id.input_doj);
+        EditTextdoj.setInputType(InputType.TYPE_NULL);
+
+        EditTextdob = (EditText) findViewById(R.id.input_dob);
+        EditTextdob.setInputType(InputType.TYPE_NULL);
+
     }
     private void setDateTimeField() {
 

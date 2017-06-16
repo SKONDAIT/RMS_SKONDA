@@ -72,18 +72,12 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_address" />
         </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_course"
+        <Spinner
+            android:id="@+id/spinner_course"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp">
-
-            <EditText
-                android:id="@+id/input_course"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_course" />
-        </android.support.design.widget.TextInputLayout>
+            android:entries="@array/course_array"
+            android:layout_marginTop="20dp"/>
 
             <Spinner
                 android:id="@+id/spinner_channel"
