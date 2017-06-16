@@ -2,9 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.skonda.rms_skonda">
 
+    <uses-sdk android:minSdkVersion="19" />
+
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -76,47 +81,50 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.skonda.rms_skonda.Dashboard" />
         </activity>
-        <activity android:name=".course"
+        <activity
+            android:name=".course"
             android:label="course"
             android:parentActivityName=".Fee_report"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.skonda.rms_skonda.Fee_report"/>
+                android:value="in.skonda.rms_skonda.Fee_report" />
         </activity>
-        <activity android:name=".channel"
+        <activity
+            android:name=".channel"
             android:label="channel"
             android:parentActivityName=".Fee_report"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.skonda.rms_skonda.Fee_report"/>
+                android:value="in.skonda.rms_skonda.Fee_report" />
         </activity>
-        <activity android:name=".EditStudent"
+        <activity
+            android:name=".EditStudent"
             android:label="Edit Student"
             android:parentActivityName=".ItemDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.skonda.rms_skonda.ItemDetailActivity"/>
+                android:value="in.skonda.rms_skonda.ItemDetailActivity" />
         </activity>
-        <activity android:name=".FeePay"
+        <activity
+            android:name=".FeePay"
             android:label="Fee Pay"
             android:parentActivityName=".ItemDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="in.skonda.rms_skonda.ItemDetailActivity"/>
+                android:value="in.skonda.rms_skonda.ItemDetailActivity" />
         </activity>
-
-        <activity android:name=".sms"
-                  android:label="SMS"
-                  android:parentActivityName=".Dashboard"
-                  android:theme="@style/AppTheme">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="in.skonda.rms_skonda.Dashboard" />
-
+        <activity
+            android:name=".sms"
+            android:label="SMS"
+            android:parentActivityName=".Dashboard"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.skonda.rms_skonda.Dashboard" />
         </activity>
 
     </application>

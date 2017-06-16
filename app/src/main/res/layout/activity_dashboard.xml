@@ -72,7 +72,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Enroll"
-                android:textColor="@color/colorAccent"
                 android:layout_weight="1"
                 android:layout_gravity="top"
                 android:gravity="center_horizontal"
@@ -83,7 +82,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="List"
-                android:textColor="@color/colorAccent"
                 android:layout_weight="1"
                 android:layout_gravity="top"
                 android:gravity="center_horizontal"
@@ -126,7 +124,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Report"
-            android:textColor="@color/colorAccent"
             android:layout_weight="1"
             android:layout_gravity="top"
             android:gravity="center_horizontal"
@@ -135,7 +132,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
             android:text="Fee"
             android:layout_weight="1"
             android:layout_gravity="top"
@@ -168,8 +164,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-
             android:text="SMS"
             android:layout_weight="1"
             android:layout_gravity="top"

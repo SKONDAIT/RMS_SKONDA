@@ -24,6 +24,7 @@ import okhttp3.Response;
  */
 public class DummyContent {
 
+    public static String deviceId = null;
     /**
      * An array of sample (dummy) items.
      */

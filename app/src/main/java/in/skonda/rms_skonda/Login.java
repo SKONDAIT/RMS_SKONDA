@@ -37,6 +37,8 @@ public class Login extends AppCompatActivity implements TextWatcher {
     String status = "success";
     String mobile_number;
     ProgressDialog progressDialog;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +47,21 @@ public class Login extends AppCompatActivity implements TextWatcher {
         mobile = (EditText) findViewById(R.id.mobile);
         mobile.addTextChangedListener(this);
 
+        sharedPreferences = getSharedPreferences("skonda", MODE_PRIVATE);
+        editor= sharedPreferences.edit();
+
+        if ( sharedPreferences.getBoolean("Authenticated", false) ) {
+            Intent dIntent = new Intent(this, Dashboard.class);
+            startActivity(dIntent);
+        }
+        else
+            Log.d("skondad: ", "it is not authenticated");
+
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.login_appbar);
 
         Intent dashboard = new Intent(this, Dashboard.class);
-        startActivity(dashboard);
+//        startActivity(dashboard);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Validating Mobile Registration");
@@ -72,12 +84,12 @@ public class Login extends AppCompatActivity implements TextWatcher {
         if (mobile.getText().length() == 10) {
             progressDialog.show();
             mobile_number = mobile.getText().toString();
-//            String mob = mobile.getText().toString();
+            editor.putString("mobileNumber", mobile_number);
+            editor.commit();
             String url = "http://ioca.in/rms/authenticate.php?mob=" + mobile_number;
             Request request = new Request.Builder().url(url).build();
 
             OkHttpClient okHttpClient = new OkHttpClient();
-//            System.out.println("before call" + url);
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -86,10 +98,7 @@ public class Login extends AppCompatActivity implements TextWatcher {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    Log.d("skondad: ", "response success? " + response.isSuccessful()
-                            + response.message()   );
                     final String result = response.body().string();
-
                     if (result.indexOf("success") == -1)
                     {
                         status = "failure";
@@ -111,6 +120,8 @@ public class Login extends AppCompatActivity implements TextWatcher {
                                     else {
                                         sendMessage();
                                     }
+                                    else
+                                        sendMessage();
                         }
 
             });
@@ -137,13 +148,12 @@ public class Login extends AppCompatActivity implements TextWatcher {
 
     void sendMessage() {
         int otp = (int) Math.round(Math.random() * 1000000);
-        SharedPreferences sharedPreferences = getSharedPreferences("skonda", MODE_PRIVATE);
-        SharedPreferences.Editor editor= sharedPreferences.edit();
         editor.putInt("otp", otp);
         editor.commit();
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(mobile_number, null, "OTP by SKONDA - " + otp, null, null);
         progressDialog.hide();
+
     }
 
 
