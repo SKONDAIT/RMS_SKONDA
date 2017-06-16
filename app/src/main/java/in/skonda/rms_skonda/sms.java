@@ -28,16 +28,25 @@ public class sms extends AppCompatActivity implements View.OnClickListener, Call
     EditText mobileNumber;
     EditText message;
 
+    String receivedNumbers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms);
+
+        receivedNumbers = null;
+        Intent receiveContactNumbers = getIntent();
+        receivedNumbers = receiveContactNumbers.getStringExtra("contactNumbers");
 
         fab = (FloatingActionButton) findViewById(R.id.fabSMS);
         fab.setOnClickListener(this);
 
         mobileNumber = (EditText) findViewById(R.id.input_MobileNumber);
         message = (EditText) findViewById(R.id.input_MessageToSend);
+
+        if (receivedNumbers != null)
+            mobileNumber.setText(receivedNumbers);
 
     }
 

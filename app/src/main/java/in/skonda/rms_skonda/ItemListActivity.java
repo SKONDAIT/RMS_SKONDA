@@ -63,6 +63,7 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
     public SearchView searchView;
     TabLayout listTabLayout;
     List<DummyContent.DummyItem> ItemsTemp;
+    String contactNumbers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,31 +84,21 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
         listTabLayout.addTab(openTab);
         listTabLayout.addTab(closeTab);
         listTabLayout.addTab(enrollTab);
-
-
-
-
-
         OkHttpClient okHttpClient = new OkHttpClient();
         DummyContent.ITEMS.clear();
         Request request = new Request.Builder().url("http://ioca.in/rms/fetchallstudentinfo.php?deviceID=1234567890").build();
         okHttpClient.newCall(request).enqueue(new Callback() {
-
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.d("skondad: ", "Call Failed: " + e.getMessage());
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
                 try {
                     final JSONArray jsonArray = new JSONArray(response.body().string());
                     Handler handler = new Handler(Looper.getMainLooper());
                     for(int i=0; i<jsonArray.length(); i++)
                     {
                         final JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        Log.d("skondad: ", jsonObject.getString("name") ) ;
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -130,54 +121,43 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-
                             ItemsTemp.addAll(DummyContent.ITEMS);
                             View recyclerView = findViewById(R.id.item_list);
                             assert recyclerView != null;
                             setupRecyclerView((RecyclerView) recyclerView);
                         }
                     });
-                    Log.d("skondad: ", "number of elements are: " + jsonArray.length() );
                 } catch (JSONException e) {
                     e.printStackTrace();
                 };
-
-//                Log.d("skondad: ", "response success? " + response.isSuccessful() + ", response is: " + response.body().string() );
-
                 response.body().close();
             }
         });
 
-        Log.d("skondad: ", "main thread name is: " + Thread.currentThread().getName() );
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        toolbar.setTitle(getTitle());
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                contactNumbers = "";
+                for (DummyContent.DummyItem item: DummyContent.ITEMS) {
+                    contactNumbers += item.contact + ",";
+                }
+                Intent smsIntent = new Intent(getBaseContext(), sms.class);
+                smsIntent.putExtra("contactNumbers", contactNumbers);
+                startActivity(smsIntent);
+
+
             }
         });
-        // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-//        View recyclerView = findViewById(R.id.item_list);
-//        assert recyclerView != null;
-//        setupRecyclerView((RecyclerView) recyclerView);
-
         if (findViewById(R.id.item_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
             mTwoPane = true;
         }
     }
@@ -210,18 +190,12 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-
-//        ItemsTemp = new ArrayList<DummyContent.DummyItem>();
-
-//        ItemsTemp.addAll(DummyContent.ITEMS);
         DummyContent.ITEMS.clear();
-
         for (DummyContent.DummyItem itemTemp :ItemsTemp) {
             if (itemTemp.course.contains(query) || itemTemp.name.contains(query) || itemTemp.contact.contains(query))  {
                 DummyContent.ITEMS.add(itemTemp);
             }
         }
-
         return false;
     }
 
