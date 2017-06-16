@@ -95,15 +95,15 @@
         <activity android:name=".EditStudent"
             android:label="Edit Student"
             android:parentActivityName=".ItemDetailActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.skonda.rms_skonda.ItemDetailActivity"/>
         </activity>
         <activity android:name=".FeePay"
-            android:label="channel"
+            android:label="Fee Pay"
             android:parentActivityName=".ItemDetailActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.skonda.rms_skonda.ItemDetailActivity"/>
