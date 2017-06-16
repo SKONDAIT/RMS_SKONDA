@@ -90,7 +90,7 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
             }
 
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
@@ -126,7 +126,9 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
                 Log.d("skondad: ", "response success for details?  " + response.isSuccessful()
                 );
                 try {
-                    final JSONArray jsonArray = new JSONArray(response.body().string());
+                    String res = response.body().string();
+                    Log.d("skondad: ", "result json is: " + res);
+                    final JSONArray jsonArray = new JSONArray(res);
                     Handler handler = new Handler(Looper.getMainLooper());
                     for (int i = 0; i < jsonArray.length(); i++) {
                         final JSONObject c = jsonArray.getJSONObject(i);

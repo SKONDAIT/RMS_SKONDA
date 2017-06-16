@@ -62,11 +62,14 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
     private boolean mTwoPane;
     public SearchView searchView;
     TabLayout listTabLayout;
+    List<DummyContent.DummyItem> ItemsTemp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+
+        ItemsTemp = new ArrayList<DummyContent.DummyItem>();
 
         listTabLayout = (TabLayout) findViewById(R.id.listTabLayout);
         listTabLayout.addOnTabSelectedListener(this);
@@ -127,6 +130,8 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+
+                            ItemsTemp.addAll(DummyContent.ITEMS);
                             View recyclerView = findViewById(R.id.item_list);
                             assert recyclerView != null;
                             setupRecyclerView((RecyclerView) recyclerView);
@@ -206,9 +211,9 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
     @Override
     public boolean onQueryTextSubmit(String query) {
 
-        List<DummyContent.DummyItem> ItemsTemp = new ArrayList<DummyContent.DummyItem>();
+//        ItemsTemp = new ArrayList<DummyContent.DummyItem>();
 
-        ItemsTemp.addAll(DummyContent.ITEMS);
+//        ItemsTemp.addAll(DummyContent.ITEMS);
         DummyContent.ITEMS.clear();
 
         for (DummyContent.DummyItem itemTemp :ItemsTemp) {
@@ -230,9 +235,7 @@ public class ItemListActivity extends AppCompatActivity implements SearchView.On
     public void onTabSelected(TabLayout.Tab tab) {
         String tabStatus = tab.getText().toString();
 
-        List<DummyContent.DummyItem> ItemsTemp = new ArrayList<DummyContent.DummyItem>();
 
-        ItemsTemp.addAll(DummyContent.ITEMS);
         DummyContent.ITEMS.clear();
 
         for (DummyContent.DummyItem itemTemp :ItemsTemp) {
