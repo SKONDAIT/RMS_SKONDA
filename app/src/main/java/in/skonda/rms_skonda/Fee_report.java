@@ -42,31 +42,35 @@ import static android.R.attr.x;
 //import static in.skonda.rms_skonda.R.id.enroll;
 //import static in.skonda.rms_skonda.R.id.fee;
 
-public class Fee_report extends AppCompatActivity implements View.OnClickListener{
+public class Fee_report extends AppCompatActivity implements View.OnClickListener {
     ImageView channel_stat;
     ImageView course_stat;
 
-    int courses=0;
-    int pending=0;
-    int total=0;
-    int channel=0;
+    int courses = 0;
+    int pending = 0;
+    int total = 0;
+    int channel = 0;
     int j;
     TextView chn;
     TextView cou;
     TextView mon;
     TextView pen;
     TextView tot;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fee_report);
-        Log.d("skondad: ", "Hi lka;sdnf;lsahd g;asdhadghsdkfhjdk: " );
-        Log.d("skondad: ", "Hi i am here ");
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.fee_report_appbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        channel_stat = (ImageView) findViewById(R.id.chann);
+        course_stat = (ImageView) findViewById(R.id.course);
+        channel_stat.setOnClickListener(this);
+        course_stat.setOnClickListener(this);
+
 
         String url = "http://ioca.in/rms/feeReport.php?deviceID=1234567890";
         Request request = new Request.Builder().url(url).build();
@@ -82,53 +86,49 @@ public class Fee_report extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Log.d("skondad: ", "response success? 2 " + response.isSuccessful()
-                        );
-                try{
-                    final JSONArray jsonArray= new JSONArray(response.body().string());
+                );
+                try {
+                    final JSONArray jsonArray = new JSONArray(response.body().string());
                     Handler handler = new Handler(Looper.getMainLooper());
 
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
-                        final JSONObject c= jsonArray.getJSONObject(i);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        final JSONObject c = jsonArray.getJSONObject(i);
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
                                 try {
-                                    String Admission =c.getString("admissionNumber");
-                                    String course= c.getString("course");
-                                  // String fee=c.getString("feePaid");
+                                    String Admission = c.getString("admissionNumber");
+                                    String course = c.getString("course");
+                                    // String fee=c.getString("feePaid");
                                     //String due=c.getString("due");
                                     int fee = Integer.parseInt(c.getString("feePaid"));
                                     int balance = Integer.parseInt(c.getString("due"));
-                                    String Chel=c.getString("channel");
+                                    String Chel = c.getString("channel");
 
 
-                                    pending=pending+balance;
-                                    courses=courses+fee;
-                                    total=total+fee;
-                                    channel=channel+fee;
-                                   tot = (TextView) findViewById(R.id.rs_total);
-                                    tot.setText("Rs "+String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(total)));
+                                    pending = pending + balance;
+                                    courses = courses + fee;
+                                    total = total + fee;
+                                    channel = channel + fee;
+                                    tot = (TextView) findViewById(R.id.rs_total);
+                                    tot.setText("Rs " + String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(total)));
                                     cou = (TextView) findViewById(R.id.rs_courses);
-                                    cou.setText("Rs "+String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(courses)));
+                                    cou.setText("Rs " + String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(courses)));
                                     pen = (TextView) findViewById(R.id.rs_pending);
-                                    pen.setText("Rs "+String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(pending)));
+                                    pen.setText("Rs " + String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(pending)));
                                     chn = (TextView) findViewById(R.id.rs_channel);
-                                    chn.setText("Rs "+String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(channel)));
-                                }
-
-                                catch (JSONException e){
+                                    chn.setText("Rs " + String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(channel)));
+                                } catch (JSONException e) {
                                     e.printStackTrace();
                                     Toast.makeText(Fee_report.this, "there is exception ", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
                     }
-                }
-                catch (JSONException e)
-                {
+                } catch (JSONException e) {
                     e.printStackTrace();
-                };
+                }
+                ;
 
                 response.body().close();
             }
@@ -148,35 +148,32 @@ public class Fee_report extends AppCompatActivity implements View.OnClickListene
             public void onResponse(Call call, Response response) throws IOException {
                 Log.d("skondad: ", "response success? 3 " + response.isSuccessful()
                         + response.message());
-                try{
-                    final JSONArray json= new JSONArray(response.body().string());
-                   // final JSONObject c=  new JSONObject(response.body().string());
+                try {
+                    final JSONArray json = new JSONArray(response.body().string());
+                    // final JSONObject c=  new JSONObject(response.body().string());
                     Handler handler = new Handler(Looper.getMainLooper());
 
-                   // for( j=0;j<jsonArray.length();j++)
+                    // for( j=0;j<jsonArray.length();j++)
                     ////{
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                     JSONObject d=json.getJSONObject(0);
-                                    int month=Integer.parseInt(d.getString("month"));
-                                    mon = (TextView) findViewById(R.id.rs_month);
-                                    mon.setText("Rs "+String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(month)));
-                                }
-
-                                catch (JSONException e){
-                                    e.printStackTrace();
-                                    Toast.makeText(Fee_report.this, "there is exception ", Toast.LENGTH_SHORT).show();
-                                }
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject d = json.getJSONObject(0);
+                                int month = Integer.parseInt(d.getString("month"));
+                                mon = (TextView) findViewById(R.id.rs_month);
+                                mon.setText("Rs " + String.valueOf(NumberFormat.getNumberInstance(Locale.US).format(month)));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(Fee_report.this, "there is exception ", Toast.LENGTH_SHORT).show();
                             }
-                        });
+                        }
+                    });
                     //}
-                }
-                catch (JSONException e)
-                {
+                } catch (JSONException e) {
                     e.printStackTrace();
-                };
+                }
+                ;
 
                 response.body().close();
 
@@ -187,6 +184,19 @@ public class Fee_report extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
 
+        switch (v.getId()) {
+            case R.id.chann:
+                Toast.makeText(this, "channel statistics clicked", Toast.LENGTH_SHORT).show();
+                Intent intentchannel = new Intent(this, channel.class);
+                startActivity(intentchannel);
+                break;
 
+
+            case R.id.course:
+                Toast.makeText(this, "course Statistics clicked", Toast.LENGTH_SHORT).show();
+                Intent intentcourse = new Intent(this, course.class);
+                startActivity(intentcourse);
+                break;
+        }
     }
 }
