@@ -93,9 +93,6 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
-
-
         Spinner spinner = (Spinner) findViewById(R.id.mode_spinner);
         spinner.setOnItemSelectedListener(this);
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -136,7 +133,7 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
                             @Override
                             public void run() {
                                 try {
-                                    String name=c.getString("Name");
+                                    String name=c.getString("name");
                                     String course=c.getString("Course");
                                     int fee=Integer.parseInt(c.getString("fee_amount"));
                                     int paid=Integer.parseInt(c.getString("feePaid"));
@@ -178,6 +175,8 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
     public void setDateTimeField() {
         dpaid.setOnClickListener(this);
         Calendar newCalendar = Calendar.getInstance();
+        String strdate=dateFormatter.format(newCalendar.getTime());
+        dpaid.setText(strdate);
         dop=new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -191,12 +190,11 @@ public class FeePay extends AppCompatActivity implements AdapterView.OnItemSelec
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(position>0) {
             Toast.makeText(parent.getContext(),
                     "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
                     Toast.LENGTH_SHORT).show();
             mode = parent.getItemAtPosition(position).toString();
-        }
+
     }
 
     @Override
