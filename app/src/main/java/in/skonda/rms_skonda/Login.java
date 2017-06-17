@@ -6,19 +6,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -109,6 +108,8 @@ public class Login extends AppCompatActivity implements TextWatcher {
                         @Override
                         public void run() {
                             Toast.makeText(Login.this, "result is: " + status, Toast.LENGTH_SHORT).show();
+                            if (status == "failure")
+                                progressDialog.hide();
                             if (status == "success")
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                                     if (ActivityCompat.checkSelfPermission(Login.this, Manifest.permission.SEND_SMS)
@@ -130,8 +131,6 @@ public class Login extends AppCompatActivity implements TextWatcher {
                 }
             });
             Log.d("skondad: ", "after call");
-
-
         }
     }
 
@@ -155,6 +154,4 @@ public class Login extends AppCompatActivity implements TextWatcher {
         progressDialog.hide();
 
     }
-
-
 }

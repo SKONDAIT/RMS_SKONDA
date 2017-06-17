@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +33,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import static in.skonda.rms_skonda.R.id.contact;
 
 public class Enroll extends AppCompatActivity implements View.OnClickListener {
     private EditText doe;
@@ -159,7 +168,7 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
         }
 
     }
-    private class insert extends AsyncTask<String, Integer, String> {
+    private class insert extends AsyncTask<String, Integer, String> implements Callback {
 
         @Override
         protected String doInBackground(String... params) {
@@ -201,11 +210,43 @@ public class Enroll extends AppCompatActivity implements View.OnClickListener {
             Log.d("enroll:",result);
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             //if(result==)
+            String url = "http://bulksms.skonda.in/api/sendmsg.php?user=7702571000&pass=Admin1&sender=SKONDA&phone="
+                    + contact + "&text=" + "you have been enrolled" + "&priority=ndnd&stype=normal";
+
+            Log.d("skondav: ", "sms url is: " + url);
+            Request request = new Request.Builder().url(url).build();
+            OkHttpClient okHttpClient = new OkHttpClient();
+            okHttpClient.newCall(request).enqueue(this);
         }
 
         protected void onProgressUpdate(Integer... progress) {
             // pb.setProgress(progress[0]);
         }
 
+        @Override
+        public void onFailure(Call call, IOException e) {
+            Handler handler = new Handler(getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(Enroll.this, "failed: netword issue", Toast.LENGTH_SHORT).show();
+                }
+            });
+            Toast.makeText(Enroll.this, "Network Error", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+            final String resp = response.body().string();
+            Handler handler = new Handler(getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(Enroll.this, "resp is: " + resp, Toast.LENGTH_SHORT).show();
+                    Log.d("skondav: ", "resp is: " + resp);
+                }
+            });
+            response.body().close();
+        }
     }
     }
